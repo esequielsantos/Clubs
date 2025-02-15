@@ -26,6 +26,8 @@ export class MembersService {
     if (has_sponsor && has_mfd) {
       return await this.membersRepository.save(member); //all right, save and return... else
     } else {
+      //crie uma variavel hoje com a data e hora atual
+      const hoje = new Date();
       const newMember = new Members(); //create with 0... and
       newMember.name = member.name;
       newMember.admit_date = member.admit_date;
@@ -40,6 +42,11 @@ export class MembersService {
         : 0;
       newMember.honorary = member.honorary;
       newMember.status = member.status;
+      newMember.createdBy = member.createdBy ?? 'system';
+      newMember.createdAt = hoje;
+      newMember.updatedBy = member.updatedBy ?? 'system';
+      newMember.updatedAt = hoje;
+      newMember.dtLastAccess = hoje;
       const newMemberCreate = await this.membersRepository.save(newMember);
       const newId = newMemberCreate.id;
       if (!has_sponsor) {

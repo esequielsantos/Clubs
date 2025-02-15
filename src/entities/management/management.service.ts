@@ -2,6 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Management } from './management.entity';
+import { Members } from '../members/members.entity';
 import { UpdateResult, Repository } from 'typeorm';
 
 @Injectable()
@@ -9,6 +10,8 @@ export class ManagementService {
   constructor(
     @InjectRepository(Management)
     private readonly managementRepository: Repository<Management>,
+    @InjectRepository(Members)
+    private readonly membersRepository: Repository<Members>,
   ) {}
 
   async createManagement(management: Management): Promise<Management> {
@@ -51,35 +54,29 @@ export class ManagementService {
     });
   }
 
-  async getMembersPresident(): Promise<Management[] | null> {
-    return await this.managementRepository.find({
-      relations: ['presidentOf'],
-    });
+  async getMembersPresident(): Promise<any> {
+    return this.managementRepository
+      .createQueryBuilder('management')
+      .innerJoinAndSelect('management.president', 'president')
+      .select(['president.*', 'management.first_year'])
+      .getRawMany();
   }
 
-  async getMembersSecretary(): Promise<Management[] | null> {
-    return await this.managementRepository.find({
-      relations: ['secretaryOf'],
-    });
+  async getMembersPresidentInYear(year: number): Promise<any> {
+    return this.managementRepository
+      .createQueryBuilder('management')
+      .innerJoinAndSelect('management.president', 'president')
+      .where('management.first_year = :year', { year })
+      .select(['president.*', 'management.first_year'])
+      .getRawMany();
   }
-  /* 
-// Para obter o presidente de um gerenciamento específico:
-const management = await managementRepository.findOne({ where: { id: 1 }, relations: ['president'] });
-console.log(management.president.name); 
 
-// Para obter todos os gerenciamentos em que um membro foi presidente:
+  async getMembersSecretary(): Promise<Members[] | null> {
+    const secretaries = await this.managementRepository
+      .createQueryBuilder('management')
+      .innerJoinAndSelect('management.secretary', 'secretary')
+      .getMany();
 
-console.log(member.presidentOf.map(m => m.first_year));
-
-
-// Para incluir todas as relações de uma vez:
-const managementWithAllMembers = await managementRepository.findOne({ 
-    where: { id: 1 }, 
-    relations: ['president', 'secretary', 'treasurer'] 
-});
-
-console.log(managementWithAllMembers.president.name);
-console.log(managementWithAllMembers.secretary.name);
-console.log(managementWithAllMembers.treasurer.name);
-*/
+    return secretaries.map((management) => management.secretary);
+  }
 }

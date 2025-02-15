@@ -3,14 +3,29 @@ import { Controller, Get, Post, Patch, Param, Body } from '@nestjs/common';
 import { ManagementService } from './management.service';
 import { Management } from './management.entity';
 import { UpdateResult } from 'typeorm';
+import { Members } from '../members/members.entity';
 
 @Controller('management')
 export class ManagementController {
   constructor(private readonly managementService: ManagementService) {}
 
   @Get('/all')
-  async getAllManagement(): Promise<Management[]> {
+  async getAllManagement(): Promise<Management[] | null> {
     return await this.managementService.getAllManagement();
+  }
+
+  @Get('/president')
+  async getMembersPresident(): Promise<any> {
+    return await this.managementService.getMembersPresident();
+  }
+
+  @Get('/president/:year')
+  async getMembersPresidentInYear(@Param('year') year: number): Promise<any> {
+    return await this.managementService.getMembersPresidentInYear(year);
+  }
+  @Get('/secretary')
+  async getMembersSecretary(): Promise<Members[] | null> {
+    return await this.managementService.getMembersSecretary();
   }
 
   @Get()
@@ -21,16 +36,6 @@ export class ManagementController {
   @Get(':id')
   async getManagementById(@Param('id') id: number): Promise<Management | null> {
     return await this.managementService.getManagementById(id);
-  }
-
-  @Get('/president')
-  async getMembersPresident(): Promise<Management[] | null> {
-    return await this.managementService.getMembersPresident();
-  }
-
-  @Get('/secretary')
-  async getMembersSecretary(): Promise<Management[] | null> {
-    return await this.managementService.getMembersSecretary();
   }
 
   @Post()
