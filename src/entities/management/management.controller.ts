@@ -28,6 +28,11 @@ export class ManagementController {
     return await this.managementService.getMembersPresident();
   }
 
+  @Get('/secretary')
+  async getMembersSecretary(): Promise<Management[] | null> {
+    return await this.managementService.getMembersSecretary();
+  }
+
   @Post()
   async createMember(@Body() management: Management): Promise<Management> {
     return await this.managementService.createManagement(management);

@@ -57,6 +57,11 @@ export class ManagementService {
     });
   }
 
+  async getMembersSecretary(): Promise<Management[] | null> {
+    return await this.managementRepository.find({
+      relations: ['secretaryOf'],
+    });
+  }
   /* 
 // Para obter o presidente de um gerenciamento específico:
 const management = await managementRepository.findOne({ where: { id: 1 }, relations: ['president'] });
