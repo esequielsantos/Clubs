@@ -3,13 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "description": "Software to help manage Rotarys Club",
+  "author": "Esequiel Santos",
   "main": "index.js",
   "scripts": {
-    "postinstall": "npm run install:api && npm run install:frontend",
-    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install:api": "npm --prefix api install",
-    "install:frontend": "npm --prefix frontend install", 
     "eslint:check": "npm run eslint:check:api && npm run eslint:check:frontend",
     "eslint:check:api": "npm --prefix api run lint",
     "eslint:check:frontend": "npm --prefix frontend run lint",
@@ -28,5 +25,14 @@
     "concurrently": "^8.2.2",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@npmcli/fs": "^4.0.0",
+    "are-we-there-yet": "^4.0.2",
+    "gauge": "^5.0.2",
+    "glob": "^11.0.1",
+    "lru-cache": "^11.0.2",
+    "npmlog": "^7.0.1",
+    "rimraf": "^6.0.1"
   }
 }
