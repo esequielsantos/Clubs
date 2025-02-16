@@ -1,0 +1,14 @@
+*.lock
+*.log
+*.yml
+*.js
+*.svg
+!api/ormconfig.js
+!.eslintrc.js
+
+.vscode/
+.zscript/
+node_modules/
+CHANGELOG.md
+package.json
+package-lock.json

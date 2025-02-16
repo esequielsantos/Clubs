@@ -1,0 +1,38 @@
+{
+  "name": "clubs",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Software to help manage Rotarys Club",
+  "author": "Esequiel Santos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint:check": "npm run eslint:check:api && npm run eslint:check:frontend",
+    "eslint:check:api": "npm --prefix api run lint",
+    "eslint:check:frontend": "npm --prefix frontend run lint",
+    "eslint:fix": "npm run eslint:fix:api && npm run eslint:fix:frontend",
+    "eslint:fix:api": "npm --prefix api run lint -- --fix",
+    "eslint:fix:frontend": "npm --prefix frontend run lint -- --fix",
+    "prettier:check": "npm run prettier:check:api && npm run prettier:check:frontend",
+    "prettier:check:api": "prettier --check api",
+    "prettier:check:frontend": "prettier --check frontend",
+    "prettier:fix": "npm run prettier:fix:api && npm run prettier:fix:frontend",
+    "prettier:fix:api": "prettier --write api",
+    "prettier:fix:frontend": "prettier --write frontend"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "concurrently": "^8.2.2",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@npmcli/fs": "^4.0.0",
+    "are-we-there-yet": "^4.0.2",
+    "gauge": "^5.0.2",
+    "glob": "^11.0.1",
+    "lru-cache": "^11.0.2",
+    "npmlog": "^7.0.1",
+    "rimraf": "^6.0.1"
+  }
+}
