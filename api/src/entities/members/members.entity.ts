@@ -5,21 +5,14 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
+  ManyToOne,
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
-  ManyToMany,
 } from 'typeorm';
 import { Management } from '../management/management.entity';
 import { Profiles } from '../profiles/profiles.entity';
-import { Monthly_fee } from '../monthly_fee/monthly_fee.entity';
-import { Address } from '../address/address.entity';
-import { Incomes } from '../incomes/incomes.entity';
-import { Expenses } from '../expenses/expenses.entity';
-import { Club } from '../club/club.entity';
-import { Meetings } from '../meetings/meetings.entity';
-import { Minutes } from '../minutes/minutes.entity';
 
 @Entity()
 export class Members {
@@ -54,28 +47,12 @@ export class Members {
   @Column()
   rotary_id: number;
 
-  @Column({
-    default: 9,
-    nullable: true,
-  })
+  @Column()
   profile_id: number;
 
   @ManyToOne(() => Profiles, (profile) => profile.membersOf)
   @JoinColumn({ name: 'profile_id' })
   profile: Profiles;
-
-  @Column({
-    default: 9,
-    nullable: true,
-  })
-  address_id: number;
-
-  @ManyToOne(() => Address, (address) => address.membersIn)
-  @JoinColumn({ name: 'address_id' })
-  address: Address;
-
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
-  fee_balance: number;
 
   @Column()
   monthly_fee_division_id: number;
