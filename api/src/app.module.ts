@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MembersModule } from './entities/members/members.module';
 import { ManagementModule } from './entities/management/management.module';
+import { ProfilesModule } from './entities/profiles/profiles.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ManagementModule } from './entities/management/management.module';
     }),
     MembersModule,
     ManagementModule,
+    ProfilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
