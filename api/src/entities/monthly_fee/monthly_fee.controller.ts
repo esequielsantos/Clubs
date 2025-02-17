@@ -12,12 +12,12 @@ import { Monthly_feeService } from './monthly_fee.service';
 import { Monthly_fee } from './monthly_fee.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
 
-@Controller('monthly_fee')
+@Controller('monthly-fee')
 export class Monthly_feeController {
   constructor(private readonly monthly_feeService: Monthly_feeService) {}
 
   @Get()
-  async getAllActiveMonthly_fee(): Promise<Monthly_fee[]> {
+  async getAllMonthly_fee(): Promise<Monthly_fee[]> {
     return await this.monthly_feeService.getAllMonthly_fee();
   }
 

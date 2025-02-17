@@ -29,6 +29,15 @@ export class Monthly_fee {
   })
   description: string;
 
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    default: 0.01,
+    nullable: false,
+  })
+  value: number;
+
   @ManyToOne(() => Members, (member) => member.monthly_fee)
   @JoinColumn({ name: 'member_id' })
   members: Members;
