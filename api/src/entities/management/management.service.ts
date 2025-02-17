@@ -105,5 +105,4 @@ export class ManagementService {
       .select(['treasurer.*', 'management.first_year'])
       .getRawMany();
   }
-
 }

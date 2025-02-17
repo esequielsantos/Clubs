@@ -13,6 +13,7 @@ import {
 } from 'typeorm';
 import { Management } from '../management/management.entity';
 import { Profiles } from '../profiles/profiles.entity';
+import { Monthly_fee } from '../monthly_fee/monthly_fee.entity';
 
 @Entity()
 export class Members {
@@ -53,6 +54,9 @@ export class Members {
   @ManyToOne(() => Profiles, (profile) => profile.membersOf)
   @JoinColumn({ name: 'profile_id' })
   profile: Profiles;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  fee_balance: number;
 
   @Column()
   monthly_fee_division_id: number;
