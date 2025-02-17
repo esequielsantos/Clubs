@@ -10,8 +10,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
+  JoinColumn,
 } from 'typeorm';
 import { Management } from '../management/management.entity';
+import { Profiles } from '../profiles/profiles.entity';
+import { Monthly_fee } from '../monthly_fee/monthly_fee.entity';
 import { Profiles } from '../profiles/profiles.entity';
 import { Monthly_fee } from '../monthly_fee/monthly_fee.entity';
 
@@ -48,7 +51,10 @@ export class Members {
   @Column()
   rotary_id: number;
 
-  @Column()
+  @Column({
+    default: 9,
+    nullable: true,
+  })
   profile_id: number;
 
   @ManyToOne(() => Profiles, (profile) => profile.membersOf)
