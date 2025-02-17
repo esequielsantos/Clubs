@@ -8,18 +8,14 @@ import { MembersModule } from './entities/members/members.module';
 import { ManagementModule } from './entities/management/management.module';
 import { ProfilesModule } from './entities/profiles/profiles.module';
 import { Monthly_feeModule } from './entities/monthly_fee/monthly_fee.module';
+import { ormconfig } from 'ormconfig';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'club.db',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(ormconfig),
     MembersModule,
     ManagementModule,
     ProfilesModule,

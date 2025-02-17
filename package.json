@@ -21,18 +21,9 @@
     "prettier:fix:frontend": "prettier --write frontend"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7",
-    "concurrently": "^8.2.2",
-    "prettier": "^3.2.5",
-    "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "@npmcli/fs": "^4.0.0",
-    "are-we-there-yet": "^4.0.2",
-    "gauge": "^5.0.2",
-    "glob": "^11.0.1",
-    "lru-cache": "^11.0.2",
-    "npmlog": "^7.0.1",
-    "rimraf": "^6.0.1"
+    "@types/node": "^22.13.4",
+    "concurrently": "^9.1.2",
+    "prettier": "^3.5.1",
+    "typescript": "^5.7.3"
   }
 }
