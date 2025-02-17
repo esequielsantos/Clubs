@@ -16,36 +16,38 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}
 
-  @Get('/all')
-  async getAllProfiles(): Promise<Profiles[]> {
+  @Get()
+  async getAllActiveProfiles(): Promise<Profiles[]> {
     return await this.profilesService.getAllProfiles();
   }
 
-  @Get()
-  async getAllActiveProfiles(): Promise<Profiles[]> {
-    return await this.profilesService.getAllActiveProfiles();
+  @Get(':id')
+  async getProfileById(@Param('id') id: number): Promise<Profiles | null> {
+    return await this.profilesService.getProfileById(id);
   }
 
-  @Get(':id')
-  async getMemberById(@Param('id') id: number): Promise<Profiles | null> {
-    return await this.profilesService.getMemberById(id);
+  @Get(':id/members')
+  async getMembersByProfileId(
+    @Param('id') id: number,
+  ): Promise<Profiles[] | null> {
+    return await this.profilesService.getMembersByProfileId(id);
   }
 
   @Post()
-  async createMember(@Body() member: Profiles): Promise<Profiles> {
-    return await this.profilesService.createMember(member);
+  async createProfile(@Body() profile: Profiles): Promise<Profiles> {
+    return await this.profilesService.createProfile(profile);
   }
 
   @Patch(':id')
-  async updateMember(
+  async updateProfile(
     @Param('id') id: number,
-    @Body() member: Profiles,
+    @Body() profile: Profiles,
   ): Promise<UpdateResult> {
-    return await this.profilesService.updateMember(id, member);
+    return await this.profilesService.updateProfile(id, profile);
   }
 
   @Delete(':id')
-  async deleteMember(@Param('id') id: number): Promise<DeleteResult> {
-    return await this.profilesService.deleteMember(id);
+  async deleteProfile(@Param('id') id: number): Promise<DeleteResult> {
+    return await this.profilesService.deleteProfile(id);
   }
 }

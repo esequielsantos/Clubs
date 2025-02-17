@@ -1,14 +1,5 @@
-//profiles.entity.ts
-
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { Management } from '../management/management.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Members } from '../members/members.entity';
 
 @Entity()
 export class Profiles {
@@ -19,56 +10,17 @@ export class Profiles {
   name: string;
 
   @Column()
-  admit_date: Date;
+  description: string;
 
   @Column()
-  sponsor_id: number;
+  canManageMembers: boolean;
 
   @Column()
-  birthday: Date;
+  canManageFinances: boolean;
 
   @Column()
-  phone: string;
+  canViewReports: boolean;
 
-  @Column()
-  email: string;
-
-  @Column()
-  rotary_id: number;
-
-  @Column()
-  profile: number;
-
-  @Column()
-  monthly_fee_division_id: number;
-
-  @Column()
-  honorary: boolean;
-
-  @Column({ type: 'boolean', nullable: false })
-  status: boolean;
-
-  @OneToMany(() => Management, (management) => management.president)
-  presidentOf: Management[];
-
-  @OneToMany(() => Management, (management) => management.secretary)
-  secretaryOf: Management[];
-
-  @OneToMany(() => Management, (management) => management.treasurer)
-  treasurerOf: Management[];
-
-  @Column()
-  createdBy: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @Column()
-  updatedBy: string;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @Column()
-  dtLastAccess: Date;
+  @OneToMany(() => Members, (member) => member.profile)
+  membersOf: Members[];
 }

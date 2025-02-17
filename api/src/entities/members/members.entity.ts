@@ -4,11 +4,15 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  ManyToOne,
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { Management } from '../management/management.entity';
+import { Profiles } from '../profiles/profiles.entity';
+import { Monthly_fee } from '../monthly_fee/monthly_fee.entity';
 
 @Entity()
 export class Members {
@@ -36,8 +40,18 @@ export class Members {
   @Column()
   rotary_id: number;
 
-  @Column()
-  profile: number;
+  @Column({
+    default: 9,
+    nullable: true,
+  })
+  profile_id: number;
+
+  @ManyToOne(() => Profiles, (profile) => profile.membersOf)
+  @JoinColumn({ name: 'profile_id' })
+  profile: Profiles;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  fee_balance: number;
 
   @Column()
   monthly_fee_division_id: number;
@@ -57,18 +71,27 @@ export class Members {
   @OneToMany(() => Management, (management) => management.treasurer)
   treasurerOf: Management[];
 
-  @Column()
+  @OneToMany(() => Monthly_fee, (monthly_fee) => monthly_fee.members)
+  monthly_fee: Monthly_fee[];
+
+  @Column({
+    default: 'email@prov.com',
+    nullable: true,
+  })
   createdBy: string;
 
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column()
+  @Column({
+    default: 'email@prov.com',
+    nullable: true,
+  })
   updatedBy: string;
 
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column()
+  @UpdateDateColumn()
   dtLastAccess: Date;
 }

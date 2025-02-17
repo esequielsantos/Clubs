@@ -79,4 +79,30 @@ export class ManagementService {
 
     return secretaries.map((management) => management.secretary);
   }
+
+  async getMembersSecretaryInYear(year: number): Promise<any> {
+    return this.managementRepository
+      .createQueryBuilder('management')
+      .innerJoinAndSelect('management.secretary', 'secretary')
+      .where('management.first_year = :year', { year })
+      .select(['secretary.*', 'management.first_year'])
+      .getRawMany();
+  }
+
+  async getMembersTreasurer(): Promise<any> {
+    return this.managementRepository
+      .createQueryBuilder('management')
+      .innerJoinAndSelect('management.treasurer', 'treasurer')
+      .select(['treasurer.*', 'management.first_year'])
+      .getRawMany();
+  }
+
+  async getMembersTreasurerInYear(year: number): Promise<any> {
+    return this.managementRepository
+      .createQueryBuilder('management')
+      .innerJoinAndSelect('management.treasurer', 'treasurer')
+      .where('management.first_year = :year', { year })
+      .select(['treasurer.*', 'management.first_year'])
+      .getRawMany();
+  }
 }

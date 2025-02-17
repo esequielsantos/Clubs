@@ -14,26 +14,26 @@ export class Management {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  president_id: number;
+
   @ManyToOne(() => Members, (member) => member.presidentOf)
-  @JoinColumn({ name: 'president_id' }) // Nome da coluna na tabela Management
+  @JoinColumn({ name: 'president_id' })
   president: Members;
+
+  @Column()
+  secretary_id: number;
 
   @ManyToOne(() => Members, (member) => member.secretaryOf)
   @JoinColumn({ name: 'secretary_id' })
   secretary: Members;
 
+  @Column()
+  treasurer_id: number;
+
   @ManyToOne(() => Members, (member) => member.treasurerOf)
   @JoinColumn({ name: 'treasurer_id' })
   treasurer: Members;
-
-  @Column()
-  president_id: number;
-
-  @Column()
-  secretary_id: number;
-
-  @Column()
-  treasurer_id: number;
 
   @Column()
   first_year: number;

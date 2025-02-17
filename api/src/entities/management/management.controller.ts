@@ -23,9 +23,25 @@ export class ManagementController {
   async getMembersPresidentInYear(@Param('year') year: number): Promise<any> {
     return await this.managementService.getMembersPresidentInYear(year);
   }
+
   @Get('/secretary')
   async getMembersSecretary(): Promise<Members[] | null> {
     return await this.managementService.getMembersSecretary();
+  }
+
+  @Get('/secretary/:year')
+  async getMembersSecretaryInYear(@Param('year') year: number): Promise<any> {
+    return await this.managementService.getMembersSecretaryInYear(year);
+  }
+
+  @Get('/treasurer')
+  async getMembersTreasurer(): Promise<any> {
+    return await this.managementService.getMembersTreasurer();
+  }
+
+  @Get('/treasurer/:year')
+  async getMembersTreasurerInYear(@Param('year') year: number): Promise<any> {
+    return await this.managementService.getMembersTreasurerInYear(year);
   }
 
   @Get()
