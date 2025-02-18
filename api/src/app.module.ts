@@ -9,6 +9,7 @@ import { ManagementModule } from './entities/management/management.module';
 import { ProfilesModule } from './entities/profiles/profiles.module';
 import { Monthly_feeModule } from './entities/monthly_fee/monthly_fee.module';
 import { ormconfig } from 'ormconfig';
+import { AddressModule } from './entities/address/address.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ormconfig } from 'ormconfig';
     ManagementModule,
     ProfilesModule,
     Monthly_feeModule,
+    AddressModule,
   ],
   controllers: [AppController],
   providers: [AppService],
