@@ -26,6 +26,11 @@ export class MembersController {
     return await this.membersService.getAllActiveMembers();
   }
 
+  @Get('/full/:id')
+  async getFullMemberById(@Param('id') id: number): Promise<Members | null> {
+    return await this.membersService.getFullMemberById(id);
+  }
+
   @Get(':id')
   async getMemberById(@Param('id') id: number): Promise<Members | null> {
     return await this.membersService.getMemberById(id);

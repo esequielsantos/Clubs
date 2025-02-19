@@ -6,8 +6,10 @@ import {
   JoinColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { Members } from '../members/members.entity';
+import { Incomes } from '../incomes/incomes.entity';
 
 @Entity()
 export class Monthly_fee {
@@ -19,9 +21,6 @@ export class Monthly_fee {
 
   @Column()
   pay_date: Date;
-
-  @Column()
-  member_id: number;
 
   @Column({
     default: 'By System',
@@ -38,9 +37,15 @@ export class Monthly_fee {
   })
   value: number;
 
+  @Column()
+  member_id: number;
+
   @ManyToOne(() => Members, (member) => member.monthly_fee)
   @JoinColumn({ name: 'member_id' })
   members: Members;
+
+  @OneToMany(() => Incomes, (income) => income.monthly_fees)
+  incomes: Monthly_fee[];
 
   @Column({
     default: 'email@prov.com',

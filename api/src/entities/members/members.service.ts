@@ -76,6 +76,25 @@ export class MembersService {
     return await this.membersRepository.findOneById(id);
   }
 
+  async getFullMemberById(id: number): Promise<Members | null> {
+    return await this.membersRepository.findOne({
+      where: { id },
+      relations: [
+        'address',
+        'address.city',
+        'address.city.state',
+        'address.city.state.country',
+        'profile',
+        'club',
+        'monthly_fee',
+        'presidentOf',
+        'secretaryOf',
+        'treasurerOf',
+        'sponsor',
+      ],
+    });
+  }
+
   async updateMember(id: number, member: Members): Promise<UpdateResult> {
     if (member.sponsor_id === null || member.sponsor_id === 0) {
       member.sponsor_id = id;

@@ -1,0 +1,82 @@
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
+import { Address } from '../address/address.entity';
+import { Members } from '../members/members.entity';
+
+@Entity()
+export class Club {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({
+    default: 'Rotary Club',
+    nullable: true,
+  })
+  name: string;
+
+  @Column()
+  foundation_date: Date;
+
+  @Column()
+  weekday_when: number;
+
+  @Column({ type: 'time' })
+  hour_when: string;
+
+  @Column({
+    nullable: true,
+  })
+  description: string;
+
+  @Column({
+    default: 'Portugues do Brasil',
+    nullable: true,
+  })
+  language: string;
+
+  @Column()
+  phone_number: string;
+
+  @Column()
+  id_rotary: number;
+
+  @Column()
+  district: number;
+
+  @Column()
+  zone: number;
+
+  @Column({
+    nullable: true,
+  })
+  address_id: number;
+
+  @OneToOne(() => Address, (address) => address.club)
+  @JoinColumn({ name: 'address_id' })
+  address: Address;
+
+  @Column({
+    nullable: true,
+  })
+  mail_address_id: number;
+
+  @ManyToOne(() => Address, (address) => address.club)
+  @JoinColumn({ name: 'mail_address_id' })
+  mailAddress: Address;
+
+  @Column({
+    default: 1,
+    nullable: true,
+  })
+  sponsor_id: number;
+
+  @OneToMany(() => Members, (member) => member.club)
+  members: Members[];
+}

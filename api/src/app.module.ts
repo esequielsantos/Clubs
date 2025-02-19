@@ -10,6 +10,9 @@ import { ProfilesModule } from './entities/profiles/profiles.module';
 import { Monthly_feeModule } from './entities/monthly_fee/monthly_fee.module';
 import { ormconfig } from 'ormconfig';
 import { AddressModule } from './entities/address/address.module';
+import { IncomesModule } from './entities/incomes/incomes.module';
+import { ClubModule } from './entities/club/club.module';
+import { BalanceModule } from './entities/balance/balance.module';
 
 @Module({
   imports: [
@@ -22,6 +25,9 @@ import { AddressModule } from './entities/address/address.module';
     ProfilesModule,
     Monthly_feeModule,
     AddressModule,
+    IncomesModule,
+    ClubModule,
+    BalanceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
