@@ -6,7 +6,6 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { Monthly_fee } from '../monthly_fee/monthly_fee.entity';
 import { Members } from '../members/members.entity';
 import { Balance } from '../balance/balance.entity';
 

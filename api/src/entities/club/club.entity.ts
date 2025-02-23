@@ -9,6 +9,8 @@ import {
 } from 'typeorm';
 import { Address } from '../address/address.entity';
 import { Members } from '../members/members.entity';
+import { Meetings } from '../meetings/meetings.entity';
+import { Minutes } from '../minutes/minutes.entity';
 
 @Entity()
 export class Club {
@@ -65,11 +67,30 @@ export class Club {
   @Column({
     nullable: true,
   })
+  email: string;
+
+  @Column({
+    nullable: true,
+  })
+  website: string;
+
+  @Column({
+    nullable: true,
+  })
+  phone: string;
+
+  @Column({
+    nullable: true,
+  })
   mail_address_id: number;
 
   @ManyToOne(() => Address, (address) => address.club)
   @JoinColumn({ name: 'mail_address_id' })
   mailAddress: Address;
+
+  @OneToMany(() => Meetings, (meeting) => meeting.club)
+  @JoinColumn({ name: 'club_id' })
+  clubMeeting: Address[];
 
   @Column({
     default: 1,
@@ -79,4 +100,7 @@ export class Club {
 
   @OneToMany(() => Members, (member) => member.club)
   members: Members[];
+
+  @OneToMany(() => Minutes, (minute) => minute.minutesClub)
+  minutesConstituion: Minutes[];
 }

@@ -13,6 +13,8 @@ import { AddressModule } from './entities/address/address.module';
 import { IncomesModule } from './entities/incomes/incomes.module';
 import { ClubModule } from './entities/club/club.module';
 import { BalanceModule } from './entities/balance/balance.module';
+import { MeetingsModule } from './entities/meetings/meetings.module';
+import { MinutesModule } from './entities/minutes/minutes.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { BalanceModule } from './entities/balance/balance.module';
     IncomesModule,
     ClubModule,
     BalanceModule,
+    MeetingsModule,
+    MinutesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

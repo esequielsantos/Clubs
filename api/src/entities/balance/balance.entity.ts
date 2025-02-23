@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { Incomes } from '../incomes/incomes.entity';
 import { Members } from '../members/members.entity';
@@ -30,9 +31,8 @@ export class Balance {
   })
   expenses_id: number;
 
-  @ManyToOne(() => Expenses, (expense) => expense.balance)
-  @JoinColumn({ name: 'expenses_id' })
-  expense: Expenses;
+  @OneToMany(() => Expenses, (expense) => expense.balance)
+  expense: Expenses[];
 
   @Column()
   balance_date: Date;

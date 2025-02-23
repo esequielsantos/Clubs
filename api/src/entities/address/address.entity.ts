@@ -10,6 +10,7 @@ import {
 import { City } from './city.entity';
 import { Members } from '../members/members.entity';
 import { Club } from '../club/club.entity';
+import { Meetings } from '../meetings/meetings.entity';
 
 @Entity()
 export class Address {
@@ -50,4 +51,7 @@ export class Address {
 
   @OneToMany(() => Club, (club) => club.mailAddress)
   mailClub: Club;
+
+  @OneToMany(() => Meetings, (meeting) => meeting.address)
+  meetingAddress: Meetings;
 }
