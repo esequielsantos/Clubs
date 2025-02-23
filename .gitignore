@@ -1,3 +1,9 @@
+#Database
+db.sqlite3
+db.sqlite
+club.db
+sqlite.db
+
 # Logs
 logs
 *.log
