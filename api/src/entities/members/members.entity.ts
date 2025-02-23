@@ -10,7 +10,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
-  JoinColumn,
+  ManyToMany,
 } from 'typeorm';
 import { Management } from '../management/management.entity';
 import { Profiles } from '../profiles/profiles.entity';
@@ -19,6 +19,8 @@ import { Address } from '../address/address.entity';
 import { Incomes } from '../incomes/incomes.entity';
 import { Expenses } from '../expenses/expenses.entity';
 import { Club } from '../club/club.entity';
+import { Meetings } from '../meetings/meetings.entity';
+import { Minutes } from '../minutes/minutes.entity';
 
 @Entity()
 export class Members {
