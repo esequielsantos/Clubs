@@ -21,7 +21,7 @@
     "prettier:fix:frontend": "prettier --write frontend"
   },
   "devDependencies": {
-    "prettier": "^3.5.1",
+    "prettier": "^3.5.2",
     "typescript": "^5.7.3"
   }
 }
