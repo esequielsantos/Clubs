@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Members } from '../members/members.entity';
 import { Balance } from '../balance/balance.entity';
+import { Club } from '../club/club.entity';
 
 @Entity()
 export class Expenses {
@@ -52,4 +53,31 @@ export class Expenses {
 
   @OneToMany(() => Balance, (balance) => balance.expense)
   balance: Balance[];
+
+  @Column({
+    nullable: true,
+  })
+  perCapita_id: number;
+
+  @ManyToOne(() => Club, (club) => club.expensesPercapita)
+  @JoinColumn({ name: 'perCapita_id' })
+  perCapita: Club;
+
+  @Column({
+    nullable: true,
+  })
+  magazine_id: number;
+
+  @ManyToOne(() => Club, (club) => club.expensesMagazine)
+  @JoinColumn({ name: 'magazine_id' })
+  magazine: Club;
+
+  @Column({
+    nullable: true,
+  })
+  district_due_id: number;
+
+  @ManyToOne(() => Club, (club) => club.expensesDistrictDue)
+  @JoinColumn({ name: 'district_due_id' })
+  districtDue: Club;
 }

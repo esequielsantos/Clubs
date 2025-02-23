@@ -11,6 +11,7 @@ import { Address } from '../address/address.entity';
 import { Members } from '../members/members.entity';
 import { Meetings } from '../meetings/meetings.entity';
 import { Minutes } from '../minutes/minutes.entity';
+import { Expenses } from '../expenses/expenses.entity';
 
 @Entity()
 export class Club {
@@ -103,4 +104,49 @@ export class Club {
 
   @OneToMany(() => Minutes, (minute) => minute.minutesClub)
   minutesConstituion: Minutes[];
+
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    default: 1.01,
+    nullable: false,
+  })
+  balance: number;
+
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    default: 1.01,
+    nullable: false,
+  })
+  per_capita: number;
+
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    default: 1.01,
+    nullable: false,
+  })
+  magazine: number;
+
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    default: 1.01,
+    nullable: false,
+  })
+  district_dues: number;
+
+  @OneToMany(() => Expenses, (expense) => expense.perCapita)
+  expensesPercapita: Expenses[];
+
+  @OneToMany(() => Expenses, (expense) => expense.magazine)
+  expensesMagazine: Expenses[];
+
+  @OneToMany(() => Expenses, (expense) => expense.districtDue)
+  expensesDistrictDue: Expenses[];
 }
