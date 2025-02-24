@@ -3,6 +3,12 @@
 /node_modules
 /build
 
+#Database
+database.sqlite
+sqlite.db
+club.sqlite
+club.db
+
 # Logs
 logs
 *.log
