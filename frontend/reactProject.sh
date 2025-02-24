@@ -1,8 +1,5 @@
 # Crie um novo projeto React usando Vite
-npm create vite@latest {project_name} --template react
-
-# Navegue até o diretório do projeto
-cd {project_name}
+npm create vite@latest --template react
 
 # Instale as dependências necessárias
 npm install @tanstack/react-query primereact primeflex primeicons typeorm @nestjs/core @nestjs/common eslint prettier
