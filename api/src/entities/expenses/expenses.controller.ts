@@ -21,6 +21,13 @@ export class ExpensesController {
     return await this.expensesService.getAllExpenses();
   }
 
+  @Get('/data')
+  async getlExpensesData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.expensesService.getExpensesData();
+  }
+
   @Get(':id')
   async getExpenseById(@Param('id') id: number): Promise<Expenses | null> {
     return await this.expensesService.getExpenseById(id);

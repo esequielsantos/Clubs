@@ -19,6 +19,33 @@ export class ClubService {
     return await this.clubRepository.find();
   }
 
+  getClubData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return Promise.resolve([
+      { field: 'id', type: 'number' },
+      { field: 'name', type: 'string' },
+      { field: 'foundation_date', type: 'Date' },
+      { field: 'weekday_when', type: 'number' },
+      { field: 'hour_when', type: 'string' },
+      { field: 'description', type: 'string' },
+      { field: 'language', type: 'string' },
+      { field: 'phone_number', type: 'string' },
+      { field: 'id_rotary', type: 'number' },
+      { field: 'district', type: 'number' },
+      { field: 'zone', type: 'number' },
+      { field: 'address_id', type: 'number', foreignKey: true },
+      { field: 'email', type: 'string' },
+      { field: 'website', type: 'string' },
+      { field: 'phone', type: 'string' },
+      { field: 'mail_address_id', type: 'number', foreignKey: true },
+      { field: 'sponsor_id', type: 'number', foreignKey: true },
+      { field: 'members', type: 'array', foreignKey: true },
+      { field: 'minutesConstituion', type: 'array', foreignKey: true },
+      { field: 'officer_term', type: 'string' },
+    ]);
+  }
+
   async getMembersByClubId(id: number): Promise<Club[]> {
     return await this.clubRepository
       .createQueryBuilder('expense')

@@ -19,6 +19,19 @@ export class Monthly_feeService {
     return await this.monthly_feeRepository.find();
   }
 
+  getMonthly_feeData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return Promise.resolve([
+      { field: 'id', type: 'number' },
+      { field: 'name', type: 'string' },
+      { field: 'description', type: 'string' },
+      { field: 'amount', type: 'number' },
+      { field: 'date', type: 'Date' },
+      { field: 'membersOf', type: 'array', foreignKey: true },
+    ]);
+  }
+
   async getMembersByMonthly_feeId(id: number): Promise<Monthly_fee[]> {
     return await this.monthly_feeRepository
       .createQueryBuilder('monthly_fee')

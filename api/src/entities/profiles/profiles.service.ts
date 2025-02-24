@@ -19,6 +19,17 @@ export class ProfilesService {
     return await this.profilesRepository.find();
   }
 
+  getProfilesData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return Promise.resolve([
+      { field: 'id', type: 'number' },
+      { field: 'name', type: 'string' },
+      { field: 'description', type: 'string' },
+      { field: 'membersOf', type: 'array', foreignKey: true },
+    ]);
+  }
+
   async getMembersByProfileId(id: number): Promise<Profiles[]> {
     return await this.profilesRepository
       .createQueryBuilder('profile')

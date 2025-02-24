@@ -21,6 +21,13 @@ export class MeetingsController {
     return await this.meetingsService.getAllMeetings();
   }
 
+  @Get('/data')
+  async getlMeetingsData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.meetingsService.getMeetingsData();
+  }
+
   @Get(':id')
   async getMeetingsById(@Param('id') id: number): Promise<Meetings | null> {
     return await this.meetingsService.getMeetingsById(id);

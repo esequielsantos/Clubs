@@ -24,6 +24,14 @@ export class AddressController {
     return await this.addressService.getAllAddress();
   }
 
+  @Get('/data')
+  async getlAddressData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.addressService.getAddressData();
+  }
+
+
   @Get(':id')
   async getAddressById(@Param('id') id: number): Promise<Address | null> {
     return await this.addressService.getAddressById(id);

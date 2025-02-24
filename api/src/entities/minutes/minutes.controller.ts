@@ -21,6 +21,13 @@ export class MinutesController {
     return await this.minutesService.getAllMinutes();
   }
 
+  @Get('/data')
+  async getlMinutesData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.minutesService.getMinutesData();
+  }
+
   @Get(':id')
   async getMinutesById(@Param('id') id: number): Promise<Minutes | null> {
     return await this.minutesService.getMinutesById(id);

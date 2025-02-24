@@ -44,6 +44,13 @@ export class ManagementController {
     return await this.managementService.getMembersTreasurerInYear(year);
   }
 
+  @Get('/data')
+  async getManagementData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.managementService.getManagementData();
+  }
+
   @Get()
   async getAllActiveManagement(): Promise<Management[]> {
     return await this.managementService.getAllActiveManagement();

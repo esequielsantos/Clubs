@@ -19,6 +19,19 @@ export class ExpensesService {
     return await this.expensesRepository.find();
   }
 
+  getExpensesData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return Promise.resolve([
+      { field: 'id', type: 'number' },
+      { field: 'name', type: 'string' },
+      { field: 'description', type: 'string' },
+      { field: 'amount', type: 'number' },
+      { field: 'date', type: 'Date' },
+      { field: 'membersOf', type: 'array', foreignKey: true },
+    ]);
+  }
+
   async getMembersByExpenseId(id: number): Promise<Expenses[]> {
     return await this.expensesRepository
       .createQueryBuilder('expense')

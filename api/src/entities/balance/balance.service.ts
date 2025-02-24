@@ -19,6 +19,19 @@ export class BalanceService {
     return await this.balanceRepository.find();
   }
 
+  getBalanceData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return Promise.resolve([
+      { field: 'id', type: 'number' },
+      { field: 'name', type: 'string' },
+      { field: 'description', type: 'string' },
+      { field: 'amount', type: 'number' },
+      { field: 'date', type: 'Date' },
+      { field: 'membersOf', type: 'array', foreignKey: true },
+    ]);
+  }
+
   async getMembersByBalanceId(id: number): Promise<Balance[]> {
     return await this.balanceRepository
       .createQueryBuilder('expense')

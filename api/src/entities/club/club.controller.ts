@@ -21,6 +21,13 @@ export class ClubController {
     return await this.clubService.getAllClub();
   }
 
+  @Get('/data')
+  async getlClubData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.clubService.getClubData();
+  }
+
   @Get(':id')
   async getClubById(@Param('id') id: number): Promise<Club | null> {
     return await this.clubService.getClubById(id);

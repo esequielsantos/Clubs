@@ -21,6 +21,13 @@ export class Monthly_feeController {
     return await this.monthly_feeService.getAllMonthly_fee();
   }
 
+  @Get('/data')
+  async getlMonthly_feeData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.monthly_feeService.getMonthly_feeData();
+  }
+
   @Get(':id')
   async getMonthly_feeById(
     @Param('id') id: number,

@@ -72,6 +72,36 @@ export class MembersService {
     });
   }
 
+  getMembersData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return Promise.resolve([
+      { field: 'id', type: 'number' },
+      { field: 'name', type: 'string' },
+      { field: 'admit_date', type: 'Date' },
+      { field: 'sponsor_id', type: 'number', foreignKey: true },
+      { field: 'birthday', type: 'Date' },
+      { field: 'phone', type: 'string' },
+      { field: 'email', type: 'string' },
+      { field: 'rotary_id', type: 'string' },
+      { field: 'profile', type: 'string', foreignKey: true },
+      { field: 'monthly_fee_division_id', type: 'number', foreignKey: true },
+      { field: 'honorary', type: 'boolean' },
+      { field: 'status', type: 'boolean' },
+      { field: 'createdBy', type: 'string' },
+      { field: 'createdAt', type: 'Date' },
+      { field: 'updatedBy', type: 'string' },
+      { field: 'updatedAt', type: 'Date' },
+      { field: 'dtLastAccess', type: 'Date' },
+      { field: 'address', type: 'array', foreignKey: true },
+      { field: 'monthly_fee', type: 'array', foreignKey: true },
+      { field: 'presidentOf', type: 'array', foreignKey: true },
+      { field: 'secretaryOf', type: 'array', foreignKey: true },
+      { field: 'treasurerOf', type: 'array', foreignKey: true },
+      { field: 'sponsor', type: 'array', foreignKey: true },
+    ]);
+  }
+
   async getMemberById(id: number): Promise<Members | null> {
     return await this.membersRepository.findOneById(id);
   }

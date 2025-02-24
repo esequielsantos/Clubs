@@ -21,6 +21,13 @@ export class BalanceController {
     return await this.balanceService.getAllBalance();
   }
 
+  @Get('/data')
+  async getlBalanceData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.balanceService.getBalanceData();
+  }
+
   @Get(':id')
   async getBalanceById(@Param('id') id: number): Promise<Balance | null> {
     return await this.balanceService.getBalanceById(id);

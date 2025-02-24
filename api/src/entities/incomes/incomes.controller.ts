@@ -21,6 +21,20 @@ export class IncomesController {
     return await this.incomesService.getAllIncomes();
   }
 
+  @Get('/data')
+  async getIncomesData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.incomesService.getIncomesData();
+  }
+
+  @Get('/data')
+  async getlIncomesData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.incomesService.getIncomesData();
+  }
+
   @Get(':id')
   async getIncomeById(@Param('id') id: number): Promise<Incomes | null> {
     return await this.incomesService.getIncomeById(id);

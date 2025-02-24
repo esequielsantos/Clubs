@@ -22,6 +22,19 @@ export class ManagementService {
     return await this.managementRepository.find();
   }
 
+  getManagementData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return Promise.resolve([
+      { field: 'id', type: 'number' },
+      { field: 'first_year', type: 'number' },
+      { field: 'last_year', type: 'number' },
+      { field: 'president', type: 'number', foreignKey: true },
+      { field: 'secretary', type: 'number', foreignKey: true },
+      { field: 'treasurer', type: 'number', foreignKey: true },
+    ]);
+  }
+
   async getAllActiveManagement(): Promise<Management[]> {
     const currentMonth = new Date().getMonth();
     const currentYear =

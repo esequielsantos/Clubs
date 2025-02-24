@@ -39,14 +39,29 @@ export class AddressService {
     });
   }
 
-  /* async getMembersByAddressId(id: number): Promise<Address[]> {
+  getAddressData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return Promise.resolve([
+      { field: 'id', type: 'number' },
+      { field: 'address1', type: 'string' },
+      { field: 'address2', type: 'string' },
+      { field: 'postal_code', type: 'string' },
+      { field: 'observation', type: 'string' },
+      { field: 'reference', type: 'string' },
+      { field: 'city_id', type: 'number', foreignKey: true },
+      { field: 'membersIn', type: 'array', foreignKey: true },
+    ]);
+  }
+
+  async getMembersByAddressId(id: number): Promise<Address[]> {
     return await this.addressRepository
       .createQueryBuilder('address')
       .innerJoinAndSelect('address.membersOf', 'membersOf')
       .where('address.id = :id', { id })
       .select(['membersOf.*', 'address.name', 'address.description'])
       .getRawMany();
-  } */
+  }
 
   async getAddressById(id: number): Promise<Address | null> {
     return await this.addressRepository.findOneById(id);

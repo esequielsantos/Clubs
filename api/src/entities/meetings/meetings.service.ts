@@ -19,6 +19,22 @@ export class MeetingsService {
     return await this.meetingsRepository.find();
   }
 
+  getMeetingsData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return Promise.resolve([
+      { field: 'id', type: 'number' },
+      { field: 'local_name', type: 'string' },
+      { field: 'meeting_date', type: 'Date' },
+      { field: 'hour_when_start', type: 'string' },
+      { field: 'hour_when_finish', type: 'string' },
+      { field: 'minutes_id', type: 'number', foreignKey: true },
+      { field: 'club_id', type: 'number', foreignKey: true },
+      { field: 'address_id', type: 'number', foreignKey: true },
+      { field: 'members', type: 'array', foreignKey: true },
+    ]);
+  }
+
   async getMembersByMeetingsId(id: number): Promise<any[]> {
     return await this.meetingsRepository
       .createQueryBuilder('meetings')

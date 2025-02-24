@@ -21,6 +21,13 @@ export class MembersController {
     return await this.membersService.getAllMembers();
   }
 
+  @Get('/data')
+  async getlMembersData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.membersService.getMembersData();
+  }
+
   @Get()
   async getAllActiveMembers(): Promise<Members[]> {
     return await this.membersService.getAllActiveMembers();

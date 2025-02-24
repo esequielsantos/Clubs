@@ -21,6 +21,13 @@ export class ProfilesController {
     return await this.profilesService.getAllProfiles();
   }
 
+  @Get('/data')
+  async getlProfilesData(): Promise<
+    { field: string; type: string; foreignKey?: boolean }[]
+  > {
+    return await this.profilesService.getProfilesData();
+  }
+
   @Get(':id')
   async getProfileById(@Param('id') id: number): Promise<Profiles | null> {
     return await this.profilesService.getProfileById(id);
