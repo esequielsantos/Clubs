@@ -33,16 +33,16 @@ export class MeetingsController {
   }
 
   @Post()
-  async createMeetings(@Body() expense: Meetings): Promise<Meetings> {
-    return await this.meetingsService.createMeetings(expense);
+  async createMeetings(@Body() meeting: Meetings): Promise<Meetings> {
+    return await this.meetingsService.createMeetings(meeting);
   }
 
   @Patch(':id')
   async updateMeetings(
     @Param('id') id: number,
-    @Body() expense: Meetings,
+    @Body() meeting: Meetings,
   ): Promise<UpdateResult> {
-    return await this.meetingsService.updateMeetings(id, expense);
+    return await this.meetingsService.updateMeetings(id, meeting);
   }
 
   @Delete(':id')

@@ -119,7 +119,7 @@ export class MembersService {
       member.status = false;
       return await this.membersRepository.update(id, member);
     } else {
-      throw new Error(`Membro com ID ${id} não encontrado.`);
+      throw new Error(`Member width ID ${id} not found.`);
     }
   }
 }

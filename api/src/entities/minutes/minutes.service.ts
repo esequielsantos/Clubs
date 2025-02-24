@@ -11,8 +11,8 @@ export class MinutesService {
     private readonly minutesRepository: Repository<Minutes>,
   ) {}
 
-  async createMinutes(expense: Minutes): Promise<Minutes> {
-    return await this.minutesRepository.save(expense);
+  async createMinutes(minutes: Minutes): Promise<Minutes> {
+    return await this.minutesRepository.save(minutes);
   }
 
   async getAllMinutes(): Promise<Minutes[]> {
@@ -21,10 +21,10 @@ export class MinutesService {
 
   async getMembersByMinutesId(id: number): Promise<Minutes[]> {
     return await this.minutesRepository
-      .createQueryBuilder('expense')
-      .innerJoinAndSelect('expense.membersOf', 'membersOf')
-      .where('expense.id = :id', { id })
-      .select(['membersOf.*', 'expense.name', 'expense.description'])
+      .createQueryBuilder('minutes')
+      .innerJoinAndSelect('minutes.membersOf', 'membersOf')
+      .where('minutes.id = :id', { id })
+      .select(['membersOf.*', 'minutes.name', 'minutes.description'])
       .getRawMany();
   }
 
@@ -32,11 +32,21 @@ export class MinutesService {
     return await this.minutesRepository.findOneById(id);
   }
 
-  async updateMinutes(id: number, expense: Minutes): Promise<UpdateResult> {
-    return await this.minutesRepository.update(id, expense);
+  async updateMinutes(id: number, minutes: Minutes): Promise<UpdateResult> {
+    return await this.minutesRepository.update(id, minutes);
   }
 
   async deleteMinutes(id: number): Promise<DeleteResult> {
-    return await this.minutesRepository.delete(id);
+    return await this.softDelete(id);
+  }
+
+  async softDelete(id: number): Promise<UpdateResult> {
+    const minutes = await this.getMinutesById(id);
+    if (minutes) {
+      minutes.status = false;
+      return await this.updateMinutes(id, minutes);
+    } else {
+      throw new Error(`Minute with ID ${id} not Found.`);
+    }
   }
 }

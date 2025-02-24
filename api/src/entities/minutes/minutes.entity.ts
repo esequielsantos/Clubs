@@ -26,7 +26,10 @@ export class Minutes {
   @ManyToMany(() => Meetings)
   meetings: Meetings[];
 
-  @Column()
+  @Column({
+    default: null,
+    nullable: true,
+  })
   club_id: number;
 
   @ManyToOne(() => Club, (club) => club.minutesConstituion)
@@ -52,4 +55,13 @@ export class Minutes {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column({
+    type: 'boolean',
+    default: false,
+  })
+  final: boolean;
+
+  @Column({ type: 'boolean', default: true, nullable: false })
+  status: boolean;
 }

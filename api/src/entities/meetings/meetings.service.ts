@@ -11,8 +11,8 @@ export class MeetingsService {
     private readonly meetingsRepository: Repository<Meetings>,
   ) {}
 
-  async createMeetings(expense: Meetings): Promise<Meetings> {
-    return await this.meetingsRepository.save(expense);
+  async createMeetings(meeting: Meetings): Promise<Meetings> {
+    return await this.meetingsRepository.save(meeting);
   }
 
   async getAllMeetings(): Promise<Meetings[]> {
@@ -32,8 +32,8 @@ export class MeetingsService {
     return await this.meetingsRepository.findOneById(id);
   }
 
-  async updateMeetings(id: number, expense: Meetings): Promise<UpdateResult> {
-    return await this.meetingsRepository.update(id, expense);
+  async updateMeetings(id: number, meeting: Meetings): Promise<UpdateResult> {
+    return await this.meetingsRepository.update(id, meeting);
   }
 
   async deleteMeetings(id: number): Promise<DeleteResult> {

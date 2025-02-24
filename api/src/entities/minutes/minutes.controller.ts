@@ -34,16 +34,16 @@ export class MinutesController {
   }
 
   @Post()
-  async createMinutes(@Body() expense: Minutes): Promise<Minutes> {
-    return await this.minutesService.createMinutes(expense);
+  async createMinutes(@Body() minute: Minutes): Promise<Minutes> {
+    return await this.minutesService.createMinutes(minute);
   }
 
   @Patch(':id')
   async updateMinutes(
     @Param('id') id: number,
-    @Body() expense: Minutes,
+    @Body() minute: Minutes,
   ): Promise<UpdateResult> {
-    return await this.minutesService.updateMinutes(id, expense);
+    return await this.minutesService.updateMinutes(id, minute);
   }
 
   @Delete(':id')
