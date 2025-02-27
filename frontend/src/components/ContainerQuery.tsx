@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 export default function ContainerQuery(props: {
   loading: boolean;
   fallbackCarregamento: ReactNode;
-  erro: Error | null;
+  error: Error | null;
   fallbackErro: ReactNode;
   children: ReactNode;
 }) {
@@ -11,7 +11,7 @@ export default function ContainerQuery(props: {
     return props.fallbackCarregamento;
   }
 
-  if (props.erro !== null) {
+  if (props.error !== null) {
     return props.fallbackErro;
   }
 

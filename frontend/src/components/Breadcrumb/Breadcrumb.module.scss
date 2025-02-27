@@ -9,11 +9,11 @@
 }
 
 .item a {
-  color: var(--cor-link);
+  color: var(--link-color);
   text-decoration: underline;
 
   &:hover {
-    color: var(--cor-link-hover);
+    color: var(--link-color-hover);
   }
 }
 

@@ -2,8 +2,7 @@
   "email_invalid": "Por favor, insira um email válido. O email {{email}} não atende aos requisitos mínimos.",
   "error_sending_email": "Erro ao enviar email: {{status}} - {{statusText}}",
   "login_successful": "Login bem-sucedido. Redirecionando...",
-  "error_validating_otp": "Erro ao validar o código OTP: {{status}}"
-}{
+  "error_validating_otp": "Erro ao validar o código OTP: {{status}}",
   "menu": {
     "cards": "Cartões",
     "cost_centres": "Centros de Custo",

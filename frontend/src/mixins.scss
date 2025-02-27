@@ -1,0 +1,4 @@
+@mixin max-screen-high {
+  min-height: 100vh; /* fallback para browsers que ainda não suportam dvh */
+  min-height: 100dvh;
+}

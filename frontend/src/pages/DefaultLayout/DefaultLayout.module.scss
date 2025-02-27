@@ -1,7 +1,7 @@
 @use "@/mixins";
 
 .layout {
-  @include mixins.altura-tela-inteira;
+  @include mixins.max-screen-high;
   display: flex;
   flex-direction: column;
 }

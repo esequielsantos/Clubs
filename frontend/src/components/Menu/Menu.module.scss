@@ -5,8 +5,8 @@
 }
 .menu,
 .header {
-  border-bottom: 2px solid var(--cor-texto-destacado);
-  color: var(--cor-texto-destacado);
+  border-bottom: 2px solid var(--highlight-text-color);
+  color: var(--highlight-text-color);
 }
 
 .headerContent {
@@ -14,19 +14,19 @@
   align-items: center;
   margin: auto;
   max-width: var(--largura-maxima-header);
-  padding: 0 var(--padding-principal);
+  padding: 0 var(--main-padding);
 
-  @media (min-width: variables.$limite-largura-tela-padrao) {
-    --largura-maxima-header: #{variables.$limite-largura-tela-padrao};
+  @media (min-width: variables.$width-limit) {
+    --largura-maxima-header: #{variables.$width-limit};
   }
-  @media (min-width: variables.$limite-largura-tela-grande) {
-    --largura-maxima-header: #{variables.$limite-largura-tela-grande};
+  @media (min-width: variables.$width-big-limit) {
+    --largura-maxima-header: #{variables.$width-big-limit};
   }
 }
 
 .headerTitle {
   text-decoration: none;
-  color: var(--cor-texto-destacado);
+  color: var(--highlight-text-color);
 
   h1 {
     align-items: center;
@@ -50,7 +50,7 @@
   /* z-index: 9999; *///aparentemente nao eh mais necessario
 
   &[aria-expanded="true"] {
-    background-color: var(--cor-menu-fundo);
+    background-color: var(--menu-background-color);
     border: 1pt #eeeeee solid;
     border-radius: 10px;
   }
@@ -76,12 +76,12 @@
   padding: 10px;
 
   a {
-    border: 1pt var(--cor-menu-fundo) solid;
+    border: 1pt var(--menu-background-color) solid;
   }
 
   &:hover {
     text-decoration: none;
-    background-color: var(--cor-menu-hover);
+    background-color: var(--menu-hover-color);
     border: 1pt #eeeeee solid;
     border-radius: 10px;
   }
@@ -91,7 +91,7 @@
 .menuLabel {
   padding: 5px;
   text-decoration: none;
-  color: var(--cor-texto-destacado) !important;
+  color: var(--highlight-text-color) !important;
 
   &:hover,
   span:hover,

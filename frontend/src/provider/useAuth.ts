@@ -3,7 +3,7 @@ import { createContext, useContext } from "react";
 export interface AuthData {
   user: UserAutenticado | null;
   loading: boolean;
-  erro: Error | null;
+  error: Error | null;
   rota: string;
   logout: ((proximoRedirect?: string | null) => Promise<void>) | (() => Promise<void>);
 }
@@ -32,7 +32,7 @@ export interface UserAutenticado {
 export const Auth = createContext<AuthContext>({
   user: null,
   loading: true,
-  erro: null,
+  error: null,
   rota: "",
   logout: async () => {},
 });

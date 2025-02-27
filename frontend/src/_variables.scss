@@ -1,0 +1,44 @@
+// Variável SCSS pois é utilizado em media queries
+$width-limit: 1280px;
+$width-big-limit: 1600px;
+
+$bp: (
+  mobile: 480px,
+  tablet: 768px,
+  note: 1200px,
+  desktop: 1440px,
+);
+$gap: 1.5vh;
+$padding: 3vh;
+
+/**
+ * Palheta de cores do sistema
+ */
+:root {
+  --background-color-default: hsl(45, 80%, 98%);
+  --highlight-text-color: hsl(147, 29%, 20%);
+  --background-green: hsl(110, 39%, 91%);
+  --light-green: hsl(79, 53%, 54%);
+  --half-green: hsl(115, 37%, 52%);
+  --dark-green: hsl(147, 98%, 23%);
+  --alert-color: hsla(0, 90%, 44%, 0.75);
+  --error-color: hsl(14, 54%, 89%);
+  --link-color: hsl(147, 29%, 20%);
+  --link-color-light: hsl(0, 0%, 88%);
+  --link-color-hover: hsl(164, 95%, 26%);
+  --menu-background-color: rgba(252, 254, 253, 1);
+  --menu-hover-color: hsl(0, 0%, 98%);
+  --inactive-color: #c8c8c8;
+  --divisor-color: #e1d7bc;
+  --active-color: hsl(147deg 25.94% 29.97%);
+  --line-color: rgb(201 201 201);
+}
+
+/**
+ * Outras configurações
+ */
+:root {
+  --fonte-padrao: "Poppins", sans-serif;
+  --main-padding: 16px; /* utilizado no cabeçalho e nos containers de conteúdo */
+  --texto-destaque: 13px;
+}

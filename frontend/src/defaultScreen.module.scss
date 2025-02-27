@@ -1,17 +1,18 @@
+/* hello world */
 @use "@/variables";
 
 .container {
-  --largura-container: 100%;
-  --largura-container-disponivel: calc(var(--largura-container) - 2 * var(--padding-principal));
+  --container-width: 100%;
+  --container-width-disponivel: calc(var(--container-width) - 2 * var(--main-padding));
   align-self: center;
-  padding: var(--padding-principal);
-  width: var(--largura-container);
+  padding: var(--main-padding);
+  width: var(--container-width);
   margin: auto;
-  @media (min-width: variables.$limite-largura-default) {
-    --largura-container: #{variables.$limite-largura-default};
+  @media (min-width:  variables.$width-limit) {
+    --container-width: #{  variables.$width-limit };
   }
-  @media (min-width: variables.$limite-largura-tela-grande) {
-    --largura-container: #{variables.$limite-largura-tela-grande};
+  @media (min-width:   variables.$width-big-limit) {
+    --container-width: #{  variables.$width-big-limit };
   }
 
 }
@@ -25,11 +26,11 @@
 }
 
 .link {
-  color: var(--cor-link);
+  color: var(--link-color);
   text-decoration: underline;
 
   &:hover {
-    color: var(--cor-link-hover);
+    color: var(--link-color-hover);
   }
 }
 
@@ -38,12 +39,12 @@
 }
 
 .panel {
-  background-color: var(--cor-verde-background);
+  background-color: var(--background-green);
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
 .inactiveButton {
-  background-color: var(--cor-inativo);
+  background-color: var(--inactive-color);
 }

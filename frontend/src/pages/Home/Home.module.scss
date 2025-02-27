@@ -1,6 +1,6 @@
 .indicador {
   justify-content: center;
-  background-color: var(--cor-verde-claro);
+  background-color: var(--light-green);
   border-radius: 4px;
   color: white;
   display: flex;
@@ -16,15 +16,15 @@
 }
 
 .indicador.filho .icone {
-  color: var(--cor-verde-claro);
+  color: var(--light-green);
 }
 
 .alerta {
-  background-color: var(--cor-alerta);
+  background-color: var(--alert-color);
 }
 
 .alerta.filho .icone {
-  color: var(--cor-alerta);
+  color: var(--alert-color);
 }
 
 .estatisticas {

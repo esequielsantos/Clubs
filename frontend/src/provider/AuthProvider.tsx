@@ -70,11 +70,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = props => {
       let proximoRedirect = location.href.toString();
 
       if(retornoLogin.status === HttpStatus.BAD_REQUEST || retornoLogin.status === HttpStatus.UNAUTHORIZED){
-        proximoRedirect = location.origin + "/requisicaoinvalida";
+        proximoRedirect = location.origin + "/invalidrequest";
         void logout(proximoRedirect);
         return;
       }else if(retornoLogin.status === HttpStatus.FORBIDDEN){
-        proximoRedirect = location.origin + "/acessonegado";
+        proximoRedirect = location.origin + "/deniedaccess";
         void logout(proximoRedirect);
         return;
       }else if(retornoLogin.status === HttpStatus.NOT_FOUND){
@@ -86,7 +86,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = props => {
         setAguardandoLogin(false);
         await refetch();
       }else {
-        proximoRedirect = location.origin + "/erro";
+        proximoRedirect = location.origin + "/error";
         void logout(proximoRedirect);
       }
     }
@@ -125,11 +125,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = props => {
   let authData: AuthData;
 
   if (loading) {
-    authData = { user: null, loading: true, erro: null , rota: rotaPc, logout: async () => {}};
+    authData = { user: null, loading: true, error: null , rota: rotaPc, logout: async () => {}};
   } else if (isError) {
-    authData = { user: null, loading: false, erro: error, rota: rotaPc, logout: async () => {} };
+    authData = { user: null, loading: false, error: error, rota: rotaPc, logout: async () => {} };
   } else {
-    authData = { user: data?.credenciais ?? null, loading: false, erro: null, rota: rotaPc, logout: async () => {} };
+    authData = { user: data?.credenciais ?? null, loading: false, error: null, rota: rotaPc, logout: async () => {} };
   }
   
   return <Auth.Provider value={{ ...authData, logout }}>{props.children}</Auth.Provider>;

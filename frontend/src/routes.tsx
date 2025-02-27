@@ -12,6 +12,7 @@ import InvalidRequest from "./components/InvalidRequest";
 import DeniedAccess from "./components/DeniedAccess";
 import ErrorScreen from "./components/ErrorScreen";
 import RootErrorBoundary from "./components/RootErrorBoundary"; // Importar erros
+import App from "./App";
 // não importa as paginas aqui --> faze fazer no lazy import LayoutPrestacaoContas from "./pages/LayoutPrestacaoConta/LayoutPrestacaoConta";
 
 interface AppRoute extends NonIndexRouteObject {
@@ -53,23 +54,23 @@ const router = createBrowserRouter([
     },
     children: [
       {
-        path: "/acessonegado",
+        path: "/deniedaccess",
         element: <DeniedAccess />,
       },
       {
-        path: "/erro",
+        path: "/error",
         element: <ErrorScreen linkVoltar="/" />,
       },
       {
-        path: "/requisicaoinvalida",
+        path: "/invalidrequest",
         element: <InvalidRequest />,
       },
       {
         path: "/",
-        element: <Navigate to="/visaogeral" />, // Redirecionamento para /visaogeral
+        element: <Navigate to="/home" />, // Redirecionamento para /home
       },
       {
-        path: "/visaogeral",
+        path: "/home",
         element: (
           <AuthGuard perfilRequisito={1}>
             <Suspense fallback={<div>Aguarde, loading...</div>}>
@@ -79,64 +80,43 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/cadastros",
+        path: "/registrations",
         element: (
           <AuthGuard perfilRequisito={1}>
             {" "}
             <Outlet />
           </AuthGuard>
         ),
-        handle: { breadcrumb: () => "Arquivos Prestadores" },
+        handle: { breadcrumb: () => "files Prestadores" },
         children: [
           {
-            path: "/cadastros/arquivo-prestadores",
+            path: "/registrations/file-prestadores",
             element: (
               <Suspense fallback={<div>Aguarde, loading...</div>}>
                 <Home />
               </Suspense>
             ),
-            handle: { breadcrumb: () => "Arquivo Prestadores" },
+            handle: { breadcrumb: () => "file Prestadores" },
           },
         ],
       },
       {
-        path: "/movimentacoes",
-        element: (
-          <AuthGuard perfilRequisito={0}>
-            {" "}
-            <Outlet />
-          </AuthGuard>
-        ),
-        handle: { breadcrumb: () => "Arquivos Prestadores" },
-        children: [
-          {
-            path: "/movimentacoes/arquivo-prestadores",
-            element: (
-              <Suspense fallback={<div>Aguarde, loading...</div>}>
-                <Home />
-              </Suspense>
-            ),
-            handle: { breadcrumb: () => "Arquivo Prestadores" },
-          },
-        ],
-      },
-      {
-        path: "/relatorios",
+        path: "/reports",
         element: (
           <AuthGuard perfilRequisito={0}>
             <Outlet />
           </AuthGuard>
         ),
-        handle: { breadcrumb: () => "Arquivos APP" },
+        handle: { breadcrumb: () => "files APP" },
         children: [
           {
-            path: "/relatorios/arquivo-app",
+            path: "/reports/file-app",
             element: (
               <Suspense fallback={<div>Aguarde, loading...</div>}>
                 <Home />
               </Suspense>
             ),
-            handle: { breadcrumb: () => "Arquivos APP" },
+            handle: { breadcrumb: () => "files APP" },
           },
         ],
       },
@@ -148,90 +128,23 @@ const router = createBrowserRouter([
             <Outlet />
           </AuthGuard>
         ),
-        handle: { breadcrumb: () => "Administração" },
+        handle: { breadcrumb: () => "Management" },
         children: [
           {
-            path: "/admin/gerenciar-user",
+            path: "/admin/manage-user",
             element: (
               <Suspense fallback={<div>Aguarde, loading...</div>}>
-                <GerenciarUser />
+                <App />
               </Suspense>
             ),
-            handle: { breadcrumb: () => "Gerenciar Usuário" },
+            handle: { breadcrumb: () => "User manage" },
           },
         ],
       },
     ],
   },
-  {
-    path: "/prestacao-contas",
-    element: (
-      <Suspense fallback={<div>Aguarde, loading...</div>}>
-        <LayoutPrestacaoContas />
-      </Suspense>
-    ),
-    errorElement: <RootErrorBoundary />,
-    handle: {
-      breadcrumb: () => <Link to="/prestacao-contas/selecao-credito">Início</Link>,
-    },
-    children: [
-      {
-        path: "/prestacao-contas",
-        element: <Navigate to="/prestacao-contas/login-otp" />, // Redirecionamento para /prestacaoconta
-      },
-      {
-        path: "/prestacao-contas/selecao-credito",
-        element: (
-          <AuthGuard perfilRequisito={0}>
-            <Suspense fallback={<div>Aguarde, loading...</div>}>
-              <SelecaoCreditos />
-            </Suspense>
-          </AuthGuard>
-        ),
-        handle: { breadcrumb: () => "Selecao Credito" },
-      },
-      {
-        path: "/prestacao-contas/login-otp",
-        element: (
-          <Suspense fallback={<div>Aguarde, loading...</div>}>
-            <LoginOtp />
-          </Suspense>
-        ),
-        handle: { breadcrumb: () => "Selecao Credito" },
-      },
-      {
-        path: "/prestacao-contas/recupera-email",
-        element: (
-          <Suspense fallback={<div>Aguarde, loading...</div>}>
-            <EmailRestore />
-          </Suspense>
-        ),
-        handle: { breadcrumb: () => "Selecao Credito" },
-      },
-      {
-        path: "/prestacao-contas/extrato",
-        element: (
-          <AuthGuard perfilRequisito={0}>
-            <Suspense fallback={<div>Aguarde, loading...</div>}>
-              <PrestacaoContas />
-            </Suspense>
-          </AuthGuard>
-        ),
-        handle: { breadcrumb: () => "Declaração de Gastos" },
-      },
-      {
-        path: "/prestacao-contas/pesquisa-nota-fiscal",
-        element: (
-          <Suspense fallback={<div>Aguarde, loading...</div>}>
-            <PesquisaNotaFiscal />
-          </Suspense>
-        ),
-        handle: { breadcrumb: () => "Declaração de Gastos" },
-      },
-    ],
-  },
 ] satisfies AppRoute[]);
 
-export default function PrestadoresRouter() {
+export default function ClubsRouter() {
   return <RouterProvider router={router} />;
 }

@@ -11,15 +11,15 @@ export interface AuthGuardProps {
 }
 
 export default function AuthGuard(props: AuthGuardProps) {
-  const { user, loading, erro, rota } = useAuth();
+  const { user, loading, error, rota } = useAuth();
   const { perfilRequisito, children } = props;
 
   if (loading) {
     return <Loading />;
   }
 
-  if (erro !== null || !rota) {
-    return <ErrorScreen mensagem={erro.message}/>;
+  if (error !== null || !rota) {
+    return <ErrorScreen mensagem={error.message}/>;
   }
  
   if(user && user?.perfil >= perfilRequisito){

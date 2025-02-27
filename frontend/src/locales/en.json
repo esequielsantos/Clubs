@@ -2,9 +2,7 @@
   "email_invalid": "Please enter a valid email. The email {{email}} does not meet the minimum requirements.",
   "error_sending_email": "Error sending email: {{status}} - {{statusText}}",
   "login_successful": "Login successful. Redirecting...",
-  "error_validating_otp": "Error validating OTP code: {{status}}"
-}
-{
+  "error_validating_otp": "Error validating OTP code: {{status}}",
   "menu": {
     "cards": "Cards",
     "cost_centres": "Cost Centres",

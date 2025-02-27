@@ -40,7 +40,7 @@ export default function Menu() {
     <>
       <a href="/" className={styles.headerTitle}>
         <h1>
-          <img src="/src/assets/icone.png" alt="CLubs" className={styles.logo} />
+          <img src="/src/assets/rotary_rotaryorg_favicons/favicon-194x194.png" alt="CLubs" className={styles.logo} />
           Clubs version {version.number}
         </h1>
       </a>
@@ -59,10 +59,10 @@ export default function Menu() {
     itemsCadastros.push({
       icon: "pi pi-download",
       label: t('menu.cards'),
-      url: "/prestadores/arquivo-prestadores",
+      url: "/prestadores/file-prestadores",
     });
 
-    itemsCadastros.push({ icon: "pi pi-graduation-cap", label: t('menu.cost_centres'), url: "/app/arquivo-app" });
+    itemsCadastros.push({ icon: "pi pi-graduation-cap", label: t('menu.cost_centres'), url: "/app/file-app" });
 
     itemsCadastros.push({
       icon: "pi pi-list",
@@ -127,7 +127,7 @@ export default function Menu() {
   if (perfilValor! >= 4) {
     menus.push({
       label: t('menu.admin'),
-      items: [{ icon: "pi pi-user", label: t('menu.users'), url: "/admin/gerenciar-user" }],
+      items: [{ icon: "pi pi-user", label: t('menu.users'), url: "/admin/manage-user" }],
     });
   }
   const final =

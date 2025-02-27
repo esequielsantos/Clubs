@@ -1,5 +1,5 @@
 import { version } from "@/AppVersion";
-import logo from "../../assets/marca-digital-sc.png";
+import logo from '@/assets/rotary_rotaryorg_favicons/favicon-194x194.png';
 import styles from "./Footer.module.scss";
 export default function Footer() {
   return (

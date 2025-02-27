@@ -28,7 +28,7 @@ export default function LoginOtp() {
     }
   });
   const [codigoOtp, setCodigoOtp] = useState<string>("");
-  const [erro, setErro] = useState<string | null>(null);
+  const [error, setErro] = useState<string | null>(null);
 
   const codigoOtpRef = useRef<HTMLInputElement | null>(null);
 
@@ -179,7 +179,7 @@ export default function LoginOtp() {
               </div>
             </>
           )}
-          {erro && <div className={styles.erro}>{erro}</div>}
+          {error && <div className={styles.error}>{error}</div>}
         </form>
       </section>
     </main>

@@ -1,166 +1,61 @@
-# API Documentation
+# Clubs
 
-## Overview
+Clubs is a comprehensive software solution designed to help manage a Rotary Club efficiently. This tool provides features to handle various aspects of club management, including members, meetings, minutes, management year, taxes, monthly fees, incomes, expenses, and more.
 
-This API is designed to help manage a Rotary Club, including members, president, secretary, treasurers, and other profiles. It provides endpoints to manage and retrieve information about the club's members and their roles.
+## Features
+
+### Members
+- Add, edit, and remove members
+- Track member attendance and participation
+- Manage member contact information and profiles
+
+### Meetings
+- Schedule and manage club meetings
+- Send meeting invitations and reminders
+- Track meeting attendance
+
+### Minutes
+- Record and store meeting minutes
+- Share minutes with members
+- Search and retrieve past minutes
+
+### Management Year
+- Define and manage the club's management year
+- Track leadership roles and responsibilities
+- Plan and organize annual events
+
+### Taxes
+- Manage tax-related information and documents
+- Generate tax reports
+- Ensure compliance with local tax regulations
+
+### Monthly Fees
+- Track member dues and payments
+- Send payment reminders
+- Generate invoices and receipts
+
+### Incomes and Expenses
+- Record and categorize club incomes and expenses
+- Generate financial reports
+- Monitor the club's financial health
 
 ## Getting Started
 
-### Installation
+To get started with Clubs, follow these steps:
+1. Install the software.
+2. Set up your club's profile and management year.
+3. Add members and their contact information.
+4. Schedule your first meeting and start managing your club efficiently.
 
-To install the necessary dependencies, run:
+## Contributing
 
-```bash
-npm install
-```
+We welcome contributions to improve Clubs. If you have suggestions or would like to contribute, please fork the repository and submit a pull request.
 
-### Running the Application
+## License
 
-To start the application in development mode, run:
+Clubs is licensed under the [MIT License](LICENSE).
 
-```bash
-npm run start:dev
-```
+## Contact
 
-To start the application in production mode, run:
+For more information or support, please contact us at [support@clubs.com](mailto:support@clubs.com).
 
-```bash
-npm run start:prod
-```
-
-### Environment Configuration
-
-Ensure you have a `.env` file in the root directory with the necessary environment variables. For example:
-
-```
-DATABASE_URL=sqlite://club.db
-PORT=3100
-```
-
-## API Endpoints
-
-### Members
-
-#### Get All Members
-
-**Endpoint:** `GET /members`
-
-**Description:** Retrieves a list of all members in the club.
-
-**Response:**
-
-```json
-[
-  {
-    "id": 1,
-    "name": "John Doe",
-    "admit_date": "2023-01-01T00:00:00.000Z",
-    "sponsor_id": 2,
-    "birthday": "1990-01-01T00:00:00.000Z",
-    "phone": "123-456-7890",
-    "email": "john.doe@example.com",
-    "rotary_id": 12345,
-    "profile": "President",
-    "monthly_fee_division_id": 3,
-    "honorary": false
-  }
-]
-```
-
-#### Get Member by ID
-
-**Endpoint:** `GET /members/:id`
-
-**Description:** Retrieves details of a specific member by their ID.
-
-**Response:**
-
-```json
-{
-  "id": 1,
-  "name": "John Doe",
-  "admit_date": "2023-01-01T00:00:00.000Z",
-  "sponsor_id": 2,
-  "birthday": "1990-01-01T00:00:00.000Z",
-  "phone": "123-456-7890",
-  "email": "john.doe@example.com",
-  "rotary_id": 12345,
-  "profile": "President",
-  "monthly_fee_division_id": 3,
-  "honorary": false
-}
-```
-
-#### Add a New Member
-
-**Endpoint:** `POST /members`
-
-**Description:** Adds a new member to the club.
-
-**Request Body:**
-
-```json
-{
-  "name": "Jane Doe",
-  "admit_date": "2023-02-01T00:00:00.000Z",
-  "sponsor_id": 1,
-  "birthday": "1992-02-01T00:00:00.000Z",
-  "phone": "987-654-3210",
-  "email": "jane.doe@example.com",
-  "rotary_id": 54321,
-  "profile": "Secretary",
-  "monthly_fee_division_id": 2,
-  "honorary": false
-}
-```
-
-**Response:**
-
-```json
-{
-  "id": 2,
-  "name": "Jane Doe",
-  "admit_date": "2023-02-01T00:00:00.000Z",
-  "sponsor_id": 1,
-  "birthday": "1992-02-01T00:00:00.000Z",
-  "phone": "987-654-3210",
-  "email": "jane.doe@example.com",
-  "rotary_id": 54321,
-  "profile": "Secretary",
-  "monthly_fee_division_id": 2,
-  "honorary": false
-}
-```
-
-### Profiles
-
-#### Get All Profiles
-
-**Endpoint:** `GET /profiles`
-
-**Description:** Retrieves a list of all profiles in the club.
-
-**Response:**
-
-```json
-[
-  {
-    "id": 1,
-    "name": "President"
-  },
-  {
-    "id": 2,
-    "name": "Secretary"
-  },
-  {
-    "id": 3,
-    "name": "Treasurer"
-  }
-]
-```
-
-## Managing Your Rotary Club
-
-This software allows you to efficiently manage your Rotary Club by providing a centralized system to keep track of members, their roles, and other important information. You can easily add new members, update their details, and retrieve information about specific members or profiles.
-
-By using this API, you can ensure that your club's data is organized and accessible, making it easier to manage the club's activities and responsibilities.

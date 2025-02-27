@@ -7,12 +7,12 @@
 }
 
 body {
-  @include mixins.altura-tela-inteira;
+  @include mixins.max-screen-high;
   font-size: 12px;
   margin: 0;
-  background-color: var(--cor-fundo-padrao);
+  background-color: var(--background-color-default);
   font-family: var(--fonte-padrao);
-  color: var(--cor-texto-destacado);
+  color: var(--highlight-text-color);
   min-block-size: 100vh;
 }
 
@@ -49,7 +49,7 @@ p {
 .p-datatable-thead {
   tr {
     th {
-      background-color: var(--cor-verde-background);
+      background-color: var(--background-green);
     }
   }
 }

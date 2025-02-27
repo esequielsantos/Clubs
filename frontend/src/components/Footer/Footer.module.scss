@@ -5,11 +5,11 @@ footer {
   bottom: 0;
 
   a {
-    color: var(--cor-verde-escuro);
+    color: var(--dark-green);
     text-decoration: none;
     background-color: transparent;
     &:hover {
-      color: var(--cor-link);
+      color: var(--link-color);
       text-decoration: underline;
     }
   }
@@ -25,11 +25,11 @@ footer {
     margin: auto;
     max-width: var(--largura-maxima-rodape);
 
-    @media (min-width: variables.$limite-largura-tela-padrao) {
-      --largura-maxima-rodape: #{variables.$limite-largura-tela-padrao};
+    @media (min-width: variables.$width-limit) {
+      --largura-maxima-rodape: #{variables.$width-limit};
     }
-    @media (min-width: variables.$limite-largura-tela-grande) {
-      --largura-maxima-rodape: #{variables.$limite-largura-tela-grande};
+    @media (min-width: variables.$width-big-limit) {
+      --largura-maxima-rodape: #{variables.$width-big-limit};
     }
   }
 
@@ -53,7 +53,7 @@ footer {
 
   .link,
   .link:hover {
-    color: var(--cor-link-light);
+    color: var(--link-color-light);
   }
 
   .space {
