@@ -72,7 +72,7 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: (
-          <AuthGuard perfilRequisito={1}>
+          <AuthGuard requestLevel={0}>
             <Suspense fallback={<div>Aguarde, loading...</div>}>
               <Home />
             </Suspense>
@@ -82,7 +82,7 @@ const router = createBrowserRouter([
       {
         path: "/registrations",
         element: (
-          <AuthGuard perfilRequisito={1}>
+          <AuthGuard requestLevel={0}>
             {" "}
             <Outlet />
           </AuthGuard>
@@ -103,7 +103,7 @@ const router = createBrowserRouter([
       {
         path: "/reports",
         element: (
-          <AuthGuard perfilRequisito={0}>
+          <AuthGuard requestLevel={0}>
             <Outlet />
           </AuthGuard>
         ),
@@ -123,7 +123,7 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: (
-          <AuthGuard perfilRequisito={0}>
+          <AuthGuard requestLevel={0}>
             {" "}
             <Outlet />
           </AuthGuard>

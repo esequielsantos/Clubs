@@ -6,13 +6,13 @@ import ErrorScreen from "./ErrorScreen";
 import DeniedAccess from "./DeniedAccess";
 
 export interface AuthGuardProps {
-  perfilRequisito: number;
+  requestLevel: number;
   children: ReactNode;
 }
 
 export default function AuthGuard(props: AuthGuardProps) {
   const { user, loading, error, rota } = useAuth();
-  const { perfilRequisito, children } = props;
+  const { requestLevel, children } = props;
 
   if (loading) {
     return <Loading />;
@@ -22,7 +22,7 @@ export default function AuthGuard(props: AuthGuardProps) {
     return <ErrorScreen mensagem={error.message}/>;
   }
  
-  if(user && user?.perfil >= perfilRequisito){
+  if(user && user?.perfil >= requestLevel){
     return children;
   }else{
     return <DeniedAccess />;
