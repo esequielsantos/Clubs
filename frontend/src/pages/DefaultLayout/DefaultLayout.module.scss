@@ -1,0 +1,20 @@
+@use "@/mixins";
+
+.layout {
+  @include mixins.altura-tela-inteira;
+  display: flex;
+  flex-direction: column;
+}
+
+header,
+footer {
+  flex: 0 0 auto;
+}
+
+main {
+  align-self: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+}

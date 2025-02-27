@@ -1,50 +1,60 @@
-# React + TypeScript + Vite
+# Rotary Club Management Software - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the frontend application for the Rotary Club Management Software.  It provides a user-friendly interface for managing various aspects of a Rotary Club's operations.  This frontend interacts with the backend API located at [link to API repository:  e.g., `/home/edisones/projects/Clubs/api`  or a public URL if available].
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The frontend application offers a comprehensive set of tools, including:
 
-## Expanding the ESLint configuration
+* **Member Management:**
+    * Register new members.
+    * Track member status (active, inactive, etc.).
+    * Manage member exits.
+    * Record fee payments.
+* **Financial Management:**
+    * Manage club finances.
+    * Track dues and other payments.
+    * Generate reports (e.g., for Rotary International tax payments).
+* **Management Year Tracking:**
+    * Control and track management years.
+    * Manage officer positions for each year.
+    * Access historical data for previous management years.
+* **Meeting Management:**
+    * Register meetings with dates, times, and agendas.
+    * Track member attendance at meetings.
+* **Minutes Management:**
+    * Create, edit, and finalize meeting minutes.
+    * Secure storage and archiving of meeting minutes.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+## Technology Stack
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+* **Framework:** React (or specify the framework used -  Vue, Angular, etc.)
+* **State Management:**  [e.g., Redux, Zustand, Context API, Jotai] (Specify what you're using)
+* **UI Library:** [e.g., Material-UI, Ant Design, Chakra UI, Primereact (as indicated by `reactProject.sh`)] (Specify which UI library, if any)
+* **Data Fetching:**  `@tanstack/react-query` (as indicated by `reactProject.sh`)
+* **Styling:** [e.g., CSS Modules, styled-components, Tailwind CSS] (Specify your styling solution)
+* **Other Libraries:** [List any other significant libraries]
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Getting Started
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. **Clone the repository:** `git clone [repository_url]`
+2. **Navigate to the directory:** `cd <repository_name>`
+3. **Install dependencies:** `npm install`  (or `yarn install`)
+4. **Start the development server:** `npm start` (or `yarn start`)
+
+
+## API Interaction
+
+This frontend application uses the REST API documented [here: Link to API documentation if available -  perhaps the `/home/edisones/projects/Clubs/api/README.md` file, once published.]. The API handles all data persistence and business logic.
+
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.  [Link to CONTRIBUTING.md if you have one]
+
+
+## License
+
+[Specify License, e.g., MIT License]

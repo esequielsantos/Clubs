@@ -1,0 +1,124 @@
+@use "@/variables.scss";
+
+.header{
+  height: 5rem;
+}
+.menu,
+.header {
+  border-bottom: 2px solid var(--cor-texto-destacado);
+  color: var(--cor-texto-destacado);
+}
+
+.headerContent {
+  --largura-maxima-header: 100%;
+  align-items: center;
+  margin: auto;
+  max-width: var(--largura-maxima-header);
+  padding: 0 var(--padding-principal);
+
+  @media (min-width: variables.$limite-largura-tela-padrao) {
+    --largura-maxima-header: #{variables.$limite-largura-tela-padrao};
+  }
+  @media (min-width: variables.$limite-largura-tela-grande) {
+    --largura-maxima-header: #{variables.$limite-largura-tela-grande};
+  }
+}
+
+.headerTitle {
+  text-decoration: none;
+  color: var(--cor-texto-destacado);
+
+  h1 {
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    gap: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* barra do menu superior */
+.menuBar {
+  background-color: transparent;
+  border: none;
+}
+
+/* itens do menu */
+.menuBar ul li {
+  padding: 0;
+  border: 1pt transparent solid;
+  /* z-index: 9999; *///aparentemente nao eh mais necessario
+
+  &[aria-expanded="true"] {
+    background-color: var(--cor-menu-fundo);
+    border: 1pt #eeeeee solid;
+    border-radius: 10px;
+  }
+}
+
+/* seta do menu */
+.subMenu li[aria-expanded="true"] .menuContent .menuAction svg {
+  transform: rotate(-90deg);
+}
+
+/* parte atras dos menu suspenso */
+.subMenu {
+  margin-top: 16px;
+  padding: 6px 10px;
+  min-width: 300px;
+  border-radius: 10px;
+  box-shadow: 3px 2px 10px rgb(190, 190, 190, 0.7);
+}
+/*  parte interna dos menus */
+.menuContent {
+  background-color: transparent;
+
+  padding: 10px;
+
+  a {
+    border: 1pt var(--cor-menu-fundo) solid;
+  }
+
+  &:hover {
+    text-decoration: none;
+    background-color: var(--cor-menu-hover);
+    border: 1pt #eeeeee solid;
+    border-radius: 10px;
+  }
+}
+
+/* Labels dos menus */
+.menuLabel {
+  padding: 5px;
+  text-decoration: none;
+  color: var(--cor-texto-destacado) !important;
+
+  &:hover,
+  span:hover,
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.link {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  gap: 4px;
+  margin-left: clamp(8px, 1.5vw, 128px);
+
+  &:hover {
+    border-bottom: 2pt #eeeeee solid;
+    cursor: pointer;
+  }
+}
+
+.logo {
+  height: 32px;
+  cursor: pointer;
+}
+
+.icone {
+  font-size: 20px;
+  padding-right: 10px;
+}

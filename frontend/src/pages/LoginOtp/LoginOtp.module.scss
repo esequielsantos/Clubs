@@ -1,0 +1,115 @@
+@use "@/variables.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.tituloTela {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30rem;
+  padding: 2rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+
+.input {
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.inputShort {
+  @extend .input;
+  width: 180px;
+  text-align: center;
+}
+
+.labelRight {
+  @extend .label;
+  width: 180px;
+  text-align: right;
+}
+
+.message {
+  padding-bottom: 20px;
+}
+
+.botaoContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem;
+  align-items: center;
+}
+
+.botao {
+  background-color: var(--cor-ativo);
+  color: var(--cor-fundo-padrao);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--cor-verde-escuro);
+  }
+
+  &:disabled {
+    color: lightgrey;
+    cursor: not-allowed;
+  }
+}
+
+.erro {
+  padding-top: 20px;
+  max-width: 300px;
+}
+
+.icone{
+  height: 100px;       // Set the height
+  width: auto;        // Maintain aspect ratio based on height
+  margin-bottom: 20px; // Add some spacing below the icon
+  display: block;   // Prevent image from affecting layout flow
+  margin-left: auto;  // Center horizontally
+  margin-right: auto;
+}
+
+.esqueciEmailLink {
+  text-align: center;
+  margin-top: 20px; 
+  padding-top: 10px; // Add padding-top for spacing
+
+  a {
+    color: #6c757d;  // Less prominent color (gray) - adjust as needed
+    font-size: 0.85rem; // Smaller font size
+    text-decoration: none;
+    display: flex;
+    align-items: left;
+    gap: 0.5rem;  
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

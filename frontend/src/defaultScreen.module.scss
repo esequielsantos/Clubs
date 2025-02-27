@@ -1,0 +1,49 @@
+@use "@/variables";
+
+.container {
+  --largura-container: 100%;
+  --largura-container-disponivel: calc(var(--largura-container) - 2 * var(--padding-principal));
+  align-self: center;
+  padding: var(--padding-principal);
+  width: var(--largura-container);
+  margin: auto;
+  @media (min-width: variables.$limite-largura-default) {
+    --largura-container: #{variables.$limite-largura-default};
+  }
+  @media (min-width: variables.$limite-largura-tela-grande) {
+    --largura-container: #{variables.$limite-largura-tela-grande};
+  }
+
+}
+
+.pageTitle {
+  display: flex;
+
+  & > *:first-child {
+    flex: 1;
+  }
+}
+
+.link {
+  color: var(--cor-link);
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--cor-link-hover);
+  }
+}
+
+.space {
+  padding-bottom: 30px;
+}
+
+.panel {
+  background-color: var(--cor-verde-background);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.inactiveButton {
+  background-color: var(--cor-inativo);
+}

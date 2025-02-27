@@ -1,0 +1,51 @@
+.indicador {
+  justify-content: center;
+  background-color: var(--cor-verde-claro);
+  border-radius: 4px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 80px;
+  width: 250px;
+}
+
+.indicador.filho {
+  background-color: white;
+  color: black;
+  width: unset;
+}
+
+.indicador.filho .icone {
+  color: var(--cor-verde-claro);
+}
+
+.alerta {
+  background-color: var(--cor-alerta);
+}
+
+.alerta.filho .icone {
+  color: var(--cor-alerta);
+}
+
+.estatisticas {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+}
+
+.icone {
+  font-size: 2rem;
+}
+
+.valor {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.subIndicadores {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+}

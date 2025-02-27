@@ -1,0 +1,22 @@
+.breadcrumb {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.separador {
+  font-size: 0.8em;
+}
+
+.item a {
+  color: var(--cor-link);
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--cor-link-hover);
+  }
+}
+
+.item:last-child {
+  font-weight: bold;
+}

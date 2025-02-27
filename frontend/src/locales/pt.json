@@ -1,0 +1,23 @@
+{
+  "email_invalid": "Por favor, insira um email válido. O email {{email}} não atende aos requisitos mínimos.",
+  "error_sending_email": "Erro ao enviar email: {{status}} - {{statusText}}",
+  "login_successful": "Login bem-sucedido. Redirecionando...",
+  "error_validating_otp": "Erro ao validar o código OTP: {{status}}"
+}{
+  "menu": {
+    "cards": "Cartões",
+    "cost_centres": "Centros de Custo",
+    "holders": "Portadores",
+    "registrations": "Cadastros",
+    "financial_movements": "Movimentação Financeira",
+    "bank_orders": "Ordens bancárias",
+    "movements": "Movimentações",
+    "credit_selection": "Seleção de Crédito",
+    "account_statement": "Extrato Prestação de Contas",
+    "invoice_search": "Pesquisa de Notas Fiscais",
+    "admin": "Admin",
+    "users": "Usuários",
+    "logout": "Sair",
+    "login": "Logar"
+  }
+}
