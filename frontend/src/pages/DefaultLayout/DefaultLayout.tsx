@@ -1,8 +1,8 @@
-import Cabecalho from "@/components/Cabecalho/Cabecalho";
+import Menu from "@/components/Menu/Menu";
 import Footer from "@/components/Footer/Footer";
 import Loading from "@/components/Loading";
 import ErrorScreen from "@/components/ErrorScreen";
-import { AuthProvider } from "@/contexts/auth/AuthProvider";
+import { AuthProvider } from "@/provider/AuthProvider";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Outlet } from "react-router-dom";
@@ -12,14 +12,12 @@ export default function DefaultLayout() {
   return (
     <AuthProvider>
       <div className={styles.layout}>
-        <Cabecalho />
-
+        <Menu />
         <ErrorBoundary fallback={<ErrorScreen mensagem=""/>}>
           <Suspense fallback={<Loading />}>
             <Outlet />
           </Suspense>
         </ErrorBoundary>
-
         <Footer />
       </div>
     </AuthProvider>
