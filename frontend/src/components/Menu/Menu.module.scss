@@ -1,4 +1,4 @@
-@use "@/variables.scss";
+@use '@/variables.scss';
 
 .header{
   height: 5rem;
@@ -47,9 +47,10 @@
 .menuBar ul li {
   padding: 0;
   border: 1pt transparent solid;
-  /* z-index: 9999; *///aparentemente nao eh mais necessario
+  /* z-index: 9999; */
+  margin: 0 15px;
 
-  &[aria-expanded="true"] {
+  &[aria-expanded='true'] {
     background-color: var(--menu-background-color);
     border: 1pt #eeeeee solid;
     border-radius: 10px;
@@ -57,14 +58,13 @@
 }
 
 /* seta do menu */
-.subMenu li[aria-expanded="true"] .menuContent .menuAction svg {
+.subMenu li[aria-expanded='true'] .menuContent .menuAction svg {
   transform: rotate(-90deg);
 }
 
 /* parte atras dos menu suspenso */
 .subMenu {
   margin-top: 16px;
-  padding: 6px 10px;
   min-width: 300px;
   border-radius: 10px;
   box-shadow: 3px 2px 10px rgb(190, 190, 190, 0.7);
@@ -74,6 +74,7 @@
   background-color: transparent;
 
   padding: 10px;
+  text-align: left;
 
   a {
     border: 1pt var(--menu-background-color) solid;

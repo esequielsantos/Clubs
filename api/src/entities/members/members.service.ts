@@ -2,68 +2,36 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Members } from './members.entity';
-import { UpdateResult, Repository } from 'typeorm';
+import { UpdateResult, Repository, DataSource } from 'typeorm';
 
 @Injectable()
 export class MembersService {
   constructor(
     @InjectRepository(Members)
     private readonly membersRepository: Repository<Members>,
+    private dataSource: DataSource,
   ) {}
 
   async createMember(member: Members): Promise<Members> {
-    let has_sponsor: boolean = true; //check for null or invalid value
-    let has_mfd: boolean = true;
-
-    if (!member.sponsor_id) {
-      has_sponsor = false;
-    }
-
-    if (!member.monthly_fee_division_id) {
-      has_mfd = false;
-    }
-
-    if (has_sponsor && has_mfd) {
-      return await this.membersRepository.save(member); //all right, save and return... else
-    } else {
-      //crie uma variavel hoje com a data e hora atual
-      const hoje = new Date();
-      const newMember = new Members(); //create with 0... and
-      newMember.name = member.name;
-      newMember.admit_date = member.admit_date;
-      newMember.sponsor_id = has_sponsor ? member.sponsor_id : 0;
-      newMember.birthday = member.birthday;
-      newMember.phone = member.phone;
-      newMember.email = member.email;
-      newMember.rotary_id = member.rotary_id;
-      newMember.profile = member.profile;
-      newMember.monthly_fee_division_id = has_mfd
-        ? member.monthly_fee_division_id
-        : 0;
-      newMember.honorary = member.honorary;
-      newMember.status = member.status;
-      newMember.createdBy = member.createdBy ?? 'system';
-      newMember.createdAt = hoje;
-      newMember.updatedBy = member.updatedBy ?? 'system';
-      newMember.updatedAt = hoje;
-      newMember.dtLastAccess = hoje;
-      const newMemberCreate = await this.membersRepository.save(newMember);
-      const newId = newMemberCreate.id;
-      if (!has_sponsor) {
-        newMember.sponsor_id = newId;
-      }
-      if (!has_mfd) {
-        newMember.monthly_fee_division_id = newId;
-      }
-      await this.updateMember(newId, newMember); //update with the ID
-      return newMember;
-    }
+    return await this.membersRepository.save(member);
   }
 
   async getAllMembers(): Promise<Members[]> {
     return await this.membersRepository.find();
   }
 
+  async recoverEmail(docId: string, birthDate: Date): Promise<Members | null> {
+    const member = await this.membersRepository.findOne({
+      where: {
+        doc_id: docId,
+        birthdate: birthDate,
+      },
+    });
+    if (member) {
+      return member;
+    }
+    return null;
+  }
   async getAllActiveMembers(): Promise<Members[]> {
     return await this.membersRepository.find({
       where: {
@@ -102,8 +70,21 @@ export class MembersService {
     ]);
   }
 
+  getMembersData2(): { field: string; type: string; foreignKey?: boolean }[] {
+    const metadata = this.dataSource.getMetadata(Members);
+    return metadata.columns.map((column) => ({
+      field: column.propertyName,
+      type: column.type as string,
+      foreignKey: column.relationMetadata ? true : false,
+    }));
+  }
+
   async getMemberById(id: number): Promise<Members | null> {
-    return await this.membersRepository.findOneById(id);
+    return await this.membersRepository.findOneBy({ id });
+  }
+
+  async getMemberByEmail(email: string): Promise<Members | null> {
+    return await this.membersRepository.findOneBy({ email: email });
   }
 
   async getFullMemberById(id: number): Promise<Members | null> {
@@ -125,17 +106,8 @@ export class MembersService {
     });
   }
 
-  async updateMember(id: number, member: Members): Promise<UpdateResult> {
-    if (member.sponsor_id === null || member.sponsor_id === 0) {
-      member.sponsor_id = id;
-    }
-    if (
-      member.monthly_fee_division_id === null ||
-      member.monthly_fee_division_id === 0
-    ) {
-      member.monthly_fee_division_id = id;
-    }
-    return await this.membersRepository.update(id, member);
+  async updatedMember(member: Members): Promise<UpdateResult> {
+    return await this.membersRepository.update(member.id, member);
   }
 
   async deleteMember(id: number): Promise<UpdateResult> {

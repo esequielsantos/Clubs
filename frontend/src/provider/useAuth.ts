@@ -1,11 +1,10 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext } from 'react';
 
 export interface AuthData {
-  user: UserAutenticado | null;
+  user: AuthenticatedUser | null;
   loading: boolean;
   error: Error | null;
-  rota: string;
-  logout: ((proximoRedirect?: string | null) => Promise<void>) | (() => Promise<void>);
+  logout: ((nextRedirect?: string | null) => Promise<void>) | (() => Promise<void>);
 }
 export type AuthContext = AuthData & {
   logout: () => void;
@@ -21,10 +20,10 @@ export enum HttpStatus {
   INTERNAL_SERVER_ERROR = 500,
   NOT_ACCEPTABLE = 406,
 }
-export interface UserAutenticado {
+export interface AuthenticatedUser {
   id: number;
-  perfil: number;
-  nome: string;
+  level: number;
+  name: string;
   email: string;
   status: HttpStatus;
 }
@@ -33,7 +32,7 @@ export const Auth = createContext<AuthContext>({
   user: null,
   loading: true,
   error: null,
-  rota: "",
+  route: '',
   logout: async () => {},
 });
 

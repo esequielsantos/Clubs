@@ -73,10 +73,10 @@ export default function LoginOtp() {
         if (msg.includes("Sucesso")) {
           const expDate = new Date();
           expDate.setTime(expDate.getTime() + 180 * 24 * 60 * 60 * 1000); // 180 dias em milissegundos
-          document.cookie = `cpesc-pc-email=${email}; path=/prestacao-contas; expires=${expDate.toUTCString()};`;
+          document.cookie = `cpesc-pc-email=${email}; path=/treasures; expires=${expDate.toUTCString()};`;
 
           //redirecionar para a tela correta
-          window.location.href = "/prestacao-contas/selecao-credito";
+          window.location.href = "/treasures/fees";
         } else if (!msg.includes("inválido")) {
           //volta sozinho para tela de login email
           setTimeout(() => {
@@ -144,7 +144,7 @@ export default function LoginOtp() {
               <div className={styles.esqueciEmailLink}>
                 {" "}
                 {/* Add a container for styling */}
-                <Link to="/prestacao-contas/recupera-email">
+                <Link to="/treasures/recupera-email">
                   {" "}
                   <i className="pi pi-external-link" /> Esqueci meu email...
                 </Link>

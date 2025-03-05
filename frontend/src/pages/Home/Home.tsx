@@ -1,17 +1,17 @@
-import TextoErro from "@/components/TextoErro";
-import { useAuth } from "@/contexts/auth/useAuth";
-import default from "@/default.module.scss";
+import TextError from '@/components/TextError';
+import { useAuth } from '@/provider/useAuth';
+import styles from '@/styles.module.scss';
 
 export default function Home() {
   const { user } = useAuth();
 
   return (
-    <main className={default.container}>
-      <section className={default.pageTitle}>
-        <h1>Visão Geral</h1>
+    <main className={styles.container}>
+      <section className={styles.pageTitle}>
+        <h1>Home</h1>
       </section>
-      <div className="flex">
-        {!user} <TextoErro mensagem="Tela em construção..." />
+      <div className='flex'>
+        {!user} <TextError mensagem='Tela em construção...' />
       </div>
     </main>
   );

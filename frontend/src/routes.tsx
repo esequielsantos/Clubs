@@ -1,4 +1,4 @@
-import { lazy, Suspense, type ReactNode } from "react";
+import { lazy, Suspense, type ReactNode } from 'react';
 import {
   createBrowserRouter,
   Link,
@@ -6,14 +6,14 @@ import {
   Outlet,
   RouterProvider,
   type NonIndexRouteObject,
-} from "react-router-dom";
-import AuthGuard from "./components/AuthGuard";
-import InvalidRequest from "./components/InvalidRequest";
-import DeniedAccess from "./components/DeniedAccess";
-import ErrorScreen from "./components/ErrorScreen";
-import RootErrorBoundary from "./components/RootErrorBoundary"; // Importar erros
-import App from "./App";
-// não importa as paginas aqui --> faze fazer no lazy import LayoutPrestacaoContas from "./pages/LayoutPrestacaoConta/LayoutPrestacaoConta";
+} from 'react-router-dom';
+import AuthGuard from './components/AuthGuard';
+import InvalidRequest from './components/InvalidRequest';
+import DeniedAccess from './components/DeniedAccess';
+import ErrorScreen from './components/ErrorScreen';
+import RootErrorBoundary from './components/RootErrorBoundary'; // Importar erros
+import App from './App';
+// dont import pages where --> do at lazy import 
 
 interface AppRoute extends NonIndexRouteObject {
   handle?: RouteData;
@@ -29,11 +29,11 @@ export interface RouteData {
  * carregadas quando a página é acessada. Isso melhora a performance do carregamento inicial da aplicação.
  */
 
-const DefaultLayout = lazy(() => import("./pages/DefaultLayout/DefaultLayout"));
-const Home = lazy(() => import("./pages/Home/Home"));
+const DefaultLayout = lazy(() => import('./pages/DefaultLayout/DefaultLayout'));
+const Home = lazy(() => import('./pages/Home/Home'));
 
-const LoginOtp = lazy(() => import("./pages/LoginOtp/LoginOtp"));
-const EmailRestore = lazy(() => import("./pages/LoginOtp/EmailRestore"));
+const LoginOtp = lazy(() => import('./pages/LoginOtp/LoginOtp'));
+const EmailRestore = lazy(() => import('./pages/LoginOtp/EmailRestore'));
 
 
 /**
@@ -42,102 +42,102 @@ const EmailRestore = lazy(() => import("./pages/LoginOtp/EmailRestore"));
  */
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: (
-      <Suspense fallback={<div>Aguarde, loading...</div>}>
+      <Suspense fallback={<div>Wait, loading...</div>}>
         <DefaultLayout />
       </Suspense>
     ),
     errorElement: <RootErrorBoundary />,
     handle: {
-      breadcrumb: () => <Link to="/">Início</Link>,
+      breadcrumb: () => <Link to='/'>Home</Link>,
     },
     children: [
       {
-        path: "/deniedaccess",
+        path: '/deniedaccess',
         element: <DeniedAccess />,
       },
       {
-        path: "/error",
-        element: <ErrorScreen linkVoltar="/" />,
+        path: '/error',
+        element: <ErrorScreen linkVoltar='/' />,
       },
       {
-        path: "/invalidrequest",
+        path: '/invalidrequest',
         element: <InvalidRequest />,
       },
       {
-        path: "/",
-        element: <Navigate to="/home" />, // Redirecionamento para /home
+        path: '/',
+        element: <Navigate to='/home' />, // Redirect to /home
       },
       {
-        path: "/home",
+        path: '/home',
         element: (
           <AuthGuard requestLevel={0}>
-            <Suspense fallback={<div>Aguarde, loading...</div>}>
+            <Suspense fallback={<div>Wait, loading...</div>}>
               <Home />
             </Suspense>
           </AuthGuard>
         ),
       },
       {
-        path: "/registrations",
+        path: '/registrations',
         element: (
           <AuthGuard requestLevel={0}>
-            {" "}
+            {' '}
             <Outlet />
           </AuthGuard>
         ),
-        handle: { breadcrumb: () => "files Prestadores" },
+        handle: { breadcrumb: () => 'files Reports' },
         children: [
           {
-            path: "/registrations/file-prestadores",
+            path: '/registrations/file-reports',
             element: (
-              <Suspense fallback={<div>Aguarde, loading...</div>}>
+              <Suspense fallback={<div>Wait, loading...</div>}>
                 <Home />
               </Suspense>
             ),
-            handle: { breadcrumb: () => "file Prestadores" },
+            handle: { breadcrumb: () => 'file Reports' },
           },
         ],
       },
       {
-        path: "/reports",
+        path: '/reports',
         element: (
           <AuthGuard requestLevel={0}>
             <Outlet />
           </AuthGuard>
         ),
-        handle: { breadcrumb: () => "files APP" },
+        handle: { breadcrumb: () => 'files APP' },
         children: [
           {
-            path: "/reports/file-app",
+            path: '/reports/file-app',
             element: (
-              <Suspense fallback={<div>Aguarde, loading...</div>}>
+              <Suspense fallback={<div>Wait, loading...</div>}>
                 <Home />
               </Suspense>
             ),
-            handle: { breadcrumb: () => "files APP" },
+            handle: { breadcrumb: () => 'files APP' },
           },
         ],
       },
       {
-        path: "/admin",
+        path: '/admin',
         element: (
           <AuthGuard requestLevel={0}>
-            {" "}
+            {' '}
             <Outlet />
           </AuthGuard>
         ),
-        handle: { breadcrumb: () => "Management" },
+        handle: { breadcrumb: () => 'Management' },
         children: [
           {
-            path: "/admin/manage-user",
+            path: '/admin/manage-user',
             element: (
-              <Suspense fallback={<div>Aguarde, loading...</div>}>
+              <Suspense fallback={<div>Wait, loading...</div>}>
                 <App />
               </Suspense>
             ),
-            handle: { breadcrumb: () => "User manage" },
+            handle: { breadcrumb: () => 'User manage' },
           },
         ],
       },

@@ -4,7 +4,7 @@ export interface Endpoint {
  
 export interface Users {
   id: number;
-  nome: string;
+  name: string;
   primeiroNome: string;
   email: string;
   acessoAdmin: string;

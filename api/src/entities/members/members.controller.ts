@@ -48,12 +48,20 @@ export class MembersController {
     return await this.membersService.createMember(member);
   }
 
+  @Post('recover-email')
+  async recoverEmail(
+    @Body('docId') docId: string,
+    @Body('birthDate') birthDate: string,
+  ): Promise<Members | null> {
+    return this.membersService.recoverEmail(docId, new Date(birthDate));
+  }
+
   @Patch(':id')
-  async updateMember(
+  async updatedMember(
     @Param('id') id: number,
     @Body() member: Members,
   ): Promise<UpdateResult> {
-    return await this.membersService.updateMember(id, member);
+    return await this.membersService.updatedMember(member);
   }
 
   @Delete(':id')

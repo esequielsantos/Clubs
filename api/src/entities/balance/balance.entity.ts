@@ -32,6 +32,7 @@ export class Balance {
   expenses_id: number;
 
   @OneToMany(() => Expenses, (expense) => expense.balance)
+  @JoinColumn({ name: 'expenses_id' })
   expense: Expenses[];
 
   @Column()

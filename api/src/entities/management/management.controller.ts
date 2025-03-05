@@ -67,7 +67,7 @@ export class ManagementController {
   }
 
   @Patch(':id')
-  async updateMember(
+  async updatedMember(
     @Param('id') id: number,
     @Body() management: Management,
   ): Promise<UpdateResult> {

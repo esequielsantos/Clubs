@@ -2,11 +2,11 @@ import type { Endpoint } from "@/endpoints";
 import { environment } from "@/env";
 
 export async function apiFetch<TRota extends keyof Endpoint>(
-  rota: TRota,
+  route: TRota,
   params: string = "",
   opcoes?: RequestInit,
 ): Promise<Awaited<Endpoint[TRota]>> {
-  const response = await fetch(environment.api + rota + params, {
+  const response = await fetch(environment.api + route + params, {
     credentials: "include",
     ...opcoes,
   });
@@ -20,5 +20,5 @@ export async function apiFetch<TRota extends keyof Endpoint>(
     async () => console.error(await response.text()),
   );
 
-  throw new Error(`Erro na rota ${rota}: ${response.statusText}`);
+  throw new Error(`Erro na route ${route}: ${response.statusText}`);
 }

@@ -32,8 +32,14 @@ export class Members {
   @Column()
   admit_date: Date;
 
-  @Column()
+  @Column({
+    default: null,
+    nullable: true,
+  })
   sponsor_id: number;
+
+  @Column()
+  doc_id: string;
 
   @ManyToOne(() => Members, (member) => member.sponsoredMembers)
   @JoinColumn({ name: 'sponsor_id' })
@@ -43,7 +49,7 @@ export class Members {
   sponsoredMembers: Members[];
 
   @Column()
-  birthday: Date;
+  birthdate: Date;
 
   @Column()
   phone: string;
@@ -77,7 +83,10 @@ export class Members {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   fee_balance: number;
 
-  @Column()
+  @Column({
+    default: null,
+    nullable: true,
+  })
   monthly_fee_division_id: number;
 
   @ManyToOne(() => Members, (member) => member.divisionMembers)
@@ -135,7 +144,11 @@ export class Members {
   })
   createdBy: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({
+    type: 'datetime',
+    nullable: true,
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
   @Column({
@@ -144,9 +157,25 @@ export class Members {
   })
   updatedBy: string;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    type: 'datetime',
+    nullable: true,
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
   updatedAt: Date;
 
-  @UpdateDateColumn()
+  @Column({ nullable: true })
+  codeOtp: string;
+
+  @Column({ nullable: true })
+  otpExpiration: Date;
+
+  @UpdateDateColumn({
+    type: 'datetime',
+    nullable: true,
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
   dtLastAccess: Date;
 }

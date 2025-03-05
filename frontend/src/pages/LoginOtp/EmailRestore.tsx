@@ -7,15 +7,15 @@ import { environment } from '@/env';
 
 
 export default function EmailRestore() {
-  const [cpf, setCpf] = useState('');
+  const [docId, setdocId] = useState('');
   const [cartaoCpesc, setCartaoCpesc] = useState('');
   const [enviando, setEnviando] = useState(false);
   const [temEmail, setTemEmail] = useState(false);
   const [mensagem, setMensagem] = useState<string | null>(null);
 
 
-  const handleCpfChange = (e: InputMaskChangeEvent) => {
-      setCpf((e.target as HTMLInputElement).value);
+  const handledocIdChange = (e: InputMaskChangeEvent) => {
+      setdocId((e.target as HTMLInputElement).value);
   };
 
   const handleCartaoChange = (e: InputMaskChangeEvent) => {
@@ -28,15 +28,15 @@ export default function EmailRestore() {
     setTemEmail(false);
 
     try{
-      const cpfLimpo = cpf.replace(/\D/g, '');
+      const cleanId = docId.replace(/\D/g, '');
       const cartaoLimpo = cartaoCpesc.replace(/\D/g, '');
 
-      const response = await fetch(environment.api + "/auth/recuperaemail", {
+      const response = await fetch(environment.api + "/auth/recoveremail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ cpf: cpfLimpo, cartao: cartaoLimpo }),
+        body: JSON.stringify({ docId: cleanId, cartao: cartaoLimpo }),
       });
 
       if (response.ok) {
@@ -54,7 +54,7 @@ export default function EmailRestore() {
     } finally {
       setEnviando(false);
     }
-    console.log('CPF:', cpf);
+    console.log('docId:', docId);
     console.log('Cartão CPESC:', cartaoCpesc);
   };
 
@@ -63,12 +63,12 @@ export default function EmailRestore() {
       <h1 >Recuperar Email</h1>
       <form className={styles.formulario}>
         <div className={styles.botaoContainer}>
-          <label htmlFor="cpf" className={styles.labelRight}>CPF:</label>
+          <label htmlFor="docId" className={styles.labelRight}>docId:</label>
             <InputMask
-              id="cpf"
+              id="docId"
               mask="999.999.999-99"
-              value={cpf}
-              onChange={handleCpfChange}
+              value={docId}
+              onChange={handledocIdChange}
               className={styles.inputShort}
               placeholder="___.___.___-__"
               maxLength={14} // Conforme a máscara com pontos e hífen
@@ -99,7 +99,7 @@ export default function EmailRestore() {
           />
         )}
         {mensagem && <div className={styles.message}>
-            {temEmail && <span> O email registrado para CPF e Cartão é <br/></span>}
+            {temEmail && <span> O email registrado para docId e Cartão é <br/></span>}
             [{mensagem}]
           </div>}
         <Button 

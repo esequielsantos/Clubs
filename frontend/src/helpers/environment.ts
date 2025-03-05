@@ -2,7 +2,7 @@ export interface AmbientVariable {
   ambient: Ambiente;
   api: string;
   sauUrlLogin: string;
-  sauUrlLogout: string;
+  login: string;
 }
 
 export enum Ambiente {

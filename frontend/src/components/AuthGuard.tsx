@@ -11,18 +11,18 @@ export interface AuthGuardProps {
 }
 
 export default function AuthGuard(props: AuthGuardProps) {
-  const { user, loading, error, rota } = useAuth();
+  const { user, loading, error, route } = useAuth();
   const { requestLevel, children } = props;
 
   if (loading) {
     return <Loading />;
   }
 
-  if (error !== null || !rota) {
+  if (error !== null || !route) {
     return <ErrorScreen mensagem={error.message}/>;
   }
  
-  if(user && user?.perfil >= requestLevel){
+  if(user && user?.level >= requestLevel){
     return children;
   }else{
     return <DeniedAccess />;

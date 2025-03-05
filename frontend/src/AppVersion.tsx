@@ -1,4 +1,4 @@
 export const version = {
-  number: "0.0.1",
-  date: "27/02/2025",
+  number: "0.0.2",
+  date: "05/03/2025",
 };

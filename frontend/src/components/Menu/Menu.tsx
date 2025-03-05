@@ -1,14 +1,14 @@
-import { useAuth } from "@/provider/useAuth";
-import { nameFormat } from "@/helpers/format";
-import { Menubar } from "primereact/menubar";
-import { Tooltip } from "primereact/tooltip";
-import { version } from "@/AppVersion";
-import styles from "./Menu.module.scss";
+import { useAuth } from '@/provider/useAuth';
+import { nameFormat } from '@/helpers/format';
+import { Menubar } from 'primereact/menubar';
+import { Tooltip } from 'primereact/tooltip';
+import { version } from '@/AppVersion';
+import styles from './Menu.module.scss';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
 
 export default function Menu() {
-  const { logout, user, rota } = useAuth();
+  const { logout, user, route } = useAuth();
   const { t } = useTranslation();
 
   const deslogar = async () => {
@@ -38,9 +38,9 @@ export default function Menu() {
   };
   const inicio = (
     <>
-      <a href="/" className={styles.headerTitle}>
+      <a href='/' className={styles.headerTitle}>
         <h1>
-          <img src="/src/assets/rotary_rotaryorg_favicons/favicon-194x194.png" alt="CLubs" className={styles.logo} />
+          <img src='/src/assets/rotary_rotaryorg_favicons/favicon-194x194.png' alt='CLubs' className={styles.logo} />
           Clubs version {version.number}
         </h1>
       </a>
@@ -48,96 +48,81 @@ export default function Menu() {
     </>
   );
 
-  // Caso a variável 'perfil' não estiver definida, defina-a para 0
-  const perfilValor = user?.perfil ?? 0;
+  
+  const userLevel = user?.level ?? 0;
 
   const menus = [];
 
-  if (perfilValor! >= 3) {
-    const itemsCadastros = [];
+  if (userLevel! >= 0) {
+    const reportsItens = [];
 
-    itemsCadastros.push({
-      icon: "pi pi-download",
+    reportsItens.push({
+      icon: 'pi pi-download',
       label: t('menu.cards'),
-      url: "/prestadores/file-prestadores",
+      url: '/reports/file-reports',
     });
 
-    itemsCadastros.push({ icon: "pi pi-graduation-cap", label: t('menu.cost_centres'), url: "/app/file-app" });
+    reportsItens.push({ icon: 'pi pi-graduation-cap', label: t('menu.cost_centres'), url: '/app/file-app' });
 
-    itemsCadastros.push({
-      icon: "pi pi-list",
+    reportsItens.push({
+      icon: 'pi pi-list',
       label: t('menu.holders'),
-      url: "/sequestrosjudiciais/sequestros-judiciais",
+      url: '/reports/fees',
     });
 
     menus.push({
       label: t('menu.registrations'),
-      items: [...itemsCadastros],
+      items: [...reportsItens],
     });
   }
 
-  if (perfilValor! >= 2) {
-    const itemsRelatorios = [];
+  if (userLevel! >= 0) {   
+    const financesItens = [];
 
-    itemsRelatorios.push({
-      icon: "pi pi-list",
-      label: t('menu.financial_movements'),
-      url: "/sequestrosjudiciais/sequestros-judiciais",
-    });
-
-    itemsRelatorios.push({
-      icon: "pi pi-list",
-      label: t('menu.bank_orders'),
-      url: "/sequestrosjudiciais/sequestros-judiciais",
-    });
-
-    menus.push({
-      label: t('menu.reports'),
-      items: [...itemsRelatorios],
-    });
-  }
-
-  if (perfilValor! >= 1) {
-    const itemsMovimentacoes = [];
-
-    itemsMovimentacoes.push({
-      icon: "pi pi-list",
+    financesItens.push({
+      icon: 'pi pi-list',
       label: t('menu.credit_selection'),
-      url: "/prestacao-contas/selecao-credito",
+      url: '/finances/fees',
     });
 
-    itemsMovimentacoes.push({
-      icon: "pi pi-list",
+    financesItens.push({
+      icon: 'pi pi-list',
       label: t('menu.account_statement'),
-      url: "/prestacao-contas/extrato",
+      url: '/finances/statement',
     });
 
-    itemsMovimentacoes.push({
-      icon: "pi pi-list",
-      label: t('menu.invoice_search'),
-      url: "/prestacao-contas/pesquisa-nota-fiscal",
+    financesItens.push({
+      icon: 'pi pi-list',
+      label: t('menu.bank_orders'),
+      url: '/finances/taxes',
+    });
+
+    financesItens.push({
+      icon: 'pi pi-list',
+      label: t('menu.financial_movements'),
+      url: '/finances/balance',
     });
 
     menus.push({
       label: t('menu.movements'),
-      items: [...itemsMovimentacoes],
+      items: [...financesItens],
     });
   }
 
-  if (perfilValor! >= 4) {
+  if (userLevel! >= 4) {
     menus.push({
       label: t('menu.admin'),
-      items: [{ icon: "pi pi-user", label: t('menu.users'), url: "/admin/manage-user" }],
+      items: [{ icon: 'pi pi-user', label: t('menu.users'), url: '/admin/manage-user' }],
     });
   }
   const final =
-    user !== null && user?.perfil !== null ? (
+    user !== null && user?.level !== null ? (
       <>
         <div className={`${styles.link} flex align-items-center gap-2`}>
-          <Tooltip target=".user-tooltip" position="bottom" />
-          <span className="user-tooltip" data-pr-tooltip={`${user?.email!} (${user?.perfil})`}>
+          <Tooltip target='.user-tooltip' position='bottom' />
+          <span className='user-tooltip' data-pr-tooltip={`${user?.email!} (${user?.level})`}>
             <i className={`${styles.icone} pi pi-user`}></i>
-            {nameFormat(user?.nome!)}
+            {nameFormat(user?.name!)}
           </span>
 
           <span className={styles.link} onClick={deslogar}>
@@ -147,10 +132,10 @@ export default function Menu() {
         </div>
       </>
     ) : (
-      <div className="flex align-items-center gap-2">
+      <div className='flex align-items-center gap-2'>
         <button onClick={() => changeLanguage('en')} className={styles.languageButton}>EN</button>
         <button onClick={() => changeLanguage('pt')} className={styles.languageButton}>PT</button>
-        <a href={rota !== "prestacao-contas" ? "/" : `/${rota}`} className={styles.link}>
+        <a href={route !== 'finances' ? '/' : `/${route}`} className={styles.link}>
           <i className={`${styles.icone} pi pi-sign-out`}></i>
           {t('menu.login')}
         </a>

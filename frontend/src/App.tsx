@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import reactLogo from '@/assets/favicon.svg'
-import './App.css'
+import './App.scss'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -8,12 +8,12 @@ function App() {
   return (
     <>
       <div>        
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+        <a href='https://react.dev' target='_blank'>
+          <img src={reactLogo} className='logo react' alt='React logo' />
         </a>
       </div>
       <h1>Vite + React</h1>
-      <div className="card">
+      <div className='card'>
         <button onClick={() => setCount((count) => count + 1)}>
           o babaca clicou {count} vezes.
         </button>
@@ -21,7 +21,7 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
+      <p className='read-the-docs'>
         Clique no logo para ver mais...
       </p>
     </>
