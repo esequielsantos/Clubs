@@ -11,14 +11,14 @@ export interface AuthGuardProps {
 }
 
 export default function AuthGuard(props: AuthGuardProps) {
-  const { user, loading, error, route } = useAuth();
+  const { user, loading, error} = useAuth();
   const { requestLevel, children } = props;
 
   if (loading) {
     return <Loading />;
   }
 
-  if (error !== null || !route) {
+  if (error !== null) {
     return <ErrorScreen mensagem={error.message}/>;
   }
  

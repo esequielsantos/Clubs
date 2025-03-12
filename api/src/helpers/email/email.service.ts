@@ -5,6 +5,7 @@ export interface StatusReturn {
   message: string;
   status: HttpStatus;
 }
+
 @Injectable()
 export class EmailService {
   private transporter = nodemailer.createTransport({

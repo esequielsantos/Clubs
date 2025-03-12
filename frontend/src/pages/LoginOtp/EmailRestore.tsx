@@ -9,7 +9,7 @@ import { environment } from '@/env';
 export default function EmailRestore() {
   const [docId, setdocId] = useState('');
   const [cartaoCpesc, setCartaoCpesc] = useState('');
-  const [enviando, setEnviando] = useState(false);
+  const [sending, setSending] = useState(false);
   const [temEmail, setTemEmail] = useState(false);
   const [mensagem, setMensagem] = useState<string | null>(null);
 
@@ -23,7 +23,7 @@ export default function EmailRestore() {
   };
 
   const handleLocalizarEmail = async () => {
-    setEnviando(true);
+    setSending(true);
     setMensagem(null);
     setTemEmail(false);
 
@@ -52,10 +52,8 @@ export default function EmailRestore() {
     }catch (error){
       setMensagem(`Erro ao tentar recuperar o email. Por favor, tente novamente mais tarde.\n${error}}`); // Generic error message
     } finally {
-      setEnviando(false);
+      setSending(false);
     }
-    console.log('docId:', docId);
-    console.log('Cartão CPESC:', cartaoCpesc);
   };
 
   return (
@@ -88,7 +86,7 @@ export default function EmailRestore() {
             
             />
         </div>
-        {enviando && ( // Show spinner conditionally
+        {sending && ( // Show spinner conditionally
           <ProgressSpinner
             style={{
               width: '40px',
@@ -106,7 +104,7 @@ export default function EmailRestore() {
           label="Localizar Email"
           onClick={handleLocalizarEmail} 
           type="button"
-          disabled={enviando}
+          disabled={sending}
           className={styles.botao} />
       </form>
     </div>

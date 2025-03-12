@@ -1,22 +1,20 @@
-import {
-  BadRequestException,
-  HttpStatus,
-  Injectable,
-  ServiceUnavailableException,
-} from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { generate } from 'otp-generator';
 import {
   numberOnly,
-  nameFormat,
   validatedocId,
   validateEmail,
   anonymizeEmail,
 } from 'src/helpers/functions';
-import { EmailService, type StatusReturn } from '../helpers/email.services';
+import {
+  EmailService,
+  type StatusReturn,
+} from '../helpers/email/email.service';
 import type { Members } from '../entities/members/members.entity';
 import { MembersService } from '../entities/members/members.service';
+import { profile } from 'console';
 
 /**
  * Payload do JWT armazenado no cliente (num cookie seguro).
@@ -30,7 +28,8 @@ export interface JwtPayload {
    */
   sub: number;
   user: number;
-  exp: number;
+  exp?: number;
+  iat?: number;
 }
 
 export interface ResultLogin extends StatusReturn {
@@ -63,7 +62,7 @@ export class AuthService {
           member.codeOtp,
           code,
           member.id,
-          0,
+          member.profile_id,
           member.otpExpiration,
         );
         if (returnData.status === HttpStatus.OK) {
@@ -181,7 +180,7 @@ export class AuthService {
     otpBase: string,
     enteredOtp: string,
     id: number,
-    perfil: number,
+    profile_id: number,
     otpExpiration: Date,
   ): Promise<ResultLogin> {
     if (!id) {
@@ -211,19 +210,16 @@ export class AuthService {
     };
 
     if (match) {
-      // Define a data de expiração para 10 minutos a partir de agora  TODO em des ta setado para 4 horas
-      const expirationToken = new Date(Date.now() + 4 * 60 * 60 * 1000);
-      const expiresIn = Math.floor(
-        (expirationToken.getTime() - Date.now()) / 1000,
-      );
-
+      const expireIn =
+        Math.floor(Date.now() / 1000) +
+        parseInt(process.env.JWT_EXPIRATION_TIME!);
       const payload: JwtPayload = {
         sub: id,
-        user: perfil,
-        exp: expiresIn,
+        user: profile_id,
       };
       returnData.token = await this.jwtService.signAsync(payload, {
-        expiresIn: expiresIn,
+        secret: process.env.JWT_SECRET,
+        expiresIn: expireIn,
       });
       returnData.message = 'Sucesso: Redirecionando...';
       returnData.status = HttpStatus.OK;

@@ -48,7 +48,7 @@ export class MembersController {
     return await this.membersService.createMember(member);
   }
 
-  @Post('recover-email')
+  @Post('recoveremail')
   async recoverEmail(
     @Body('docId') docId: string,
     @Body('birthDate') birthDate: string,

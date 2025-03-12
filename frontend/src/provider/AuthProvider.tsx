@@ -1,19 +1,19 @@
 import { environment } from '@/env';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useCallback, useEffect, useState, type ReactNode } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Auth, type AuthData, type AuthenticatedUser, HttpStatus } from './useAuth';
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Auth, AuthData, AuthenticatedUser, HttpStatus } from './useAuth';
 export interface AuthProviderProps {
   children: ReactNode;
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = props => {
-  const [aguardandoLogin, setWaiting] = useState(false);
+  const [waiting, setWaiting] = useState(false);
   const queryClient = useQueryClient();
   
   const urlCredentials = '/auth/credentials';
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { data, isLoading, isError, error, refetch } = useQuery<AuthenticatedUser | null>({
     queryKey: ['credentials'],
@@ -25,9 +25,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = props => {
   });
   
   const logout = useCallback(async (nextRedirect? : string | null) => {
-    if(!nextRedirect){
-      nextRedirect = location.href.toString(); //ver pq trouxe objeto ao sair normal
-    }
+    const redirectTo = nextRedirect ?? location.pathname;
     
     await fetch(environment.api + '/auth/logout', {
       method: 'POST',
@@ -39,15 +37,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = props => {
     await queryClient.invalidateQueries({ queryKey: ['credentials'] });
     document.cookie = 'temp-cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/auth;';
 
-    void login(nextRedirect);
+    void login(redirectTo);
 
   }, [navigate, queryClient]);
 
   const login = useCallback(async (nextRedirect? : string | null) => {    
     setWaiting(true);
 
-    nextRedirect ? nextRedirect : location.href.toString();
-    navigate(`/login-otp&redirect=${nextRedirect}`);
+    const redirectTo = nextRedirect ?? location.pathname;
+    navigate(`/loginotp?redirect=${encodeURIComponent(redirectTo)}`);
       
   },[queryClient, logout, refetch],);
 
@@ -69,9 +67,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = props => {
       }
     }, [data, queryClient]);
 
-  // Utilizado isLoading ao invés de isPending para impedir que atualizações automáticas das
-  // credentials bloqueem a tela atual.
-  const loading = isLoading || aguardandoLogin;
+    const loading = isLoading || waiting;
   
   let authData: AuthData;
 

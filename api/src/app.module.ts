@@ -1,8 +1,8 @@
 // src/app.module.ts
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MembersModule } from './entities/members/members.module';
 import { ManagementModule } from './entities/management/management.module';
@@ -14,17 +14,18 @@ import { IncomesModule } from './entities/incomes/incomes.module';
 import { ClubModule } from './entities/club/club.module';
 import { BalanceModule } from './entities/balance/balance.module';
 import { ExpensesModule } from './entities/expenses/expenses.module';
-import { Meetings } from './entities/meetings/meetings.entity';
 import { MeetingsModule } from './entities/meetings/meetings.module';
-import { Minutes } from './entities/minutes/minutes.entity';
 import { MinutesModule } from './entities/minutes/minutes.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      isGlobal: true,
       envFilePath: '.env',
     }),
     TypeOrmModule.forRoot(ormconfig),
+    AuthModule,
     MembersModule,
     ManagementModule,
     ProfilesModule,

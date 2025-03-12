@@ -26,12 +26,12 @@ export class AuthController {
   @Post('loginotp')
   async loginOtp(
     @Res({ passthrough: true }) response: Response,
-    @Body() payload: { email: string; codeOTP?: string },
+    @Body() payload: { email: string; otpCode?: string },
   ) {
     const validador = new ValidadorHttp(payload);
     const email = validador.lerString('email');
-    const codeOTP = payload.codeOTP ? validador.lerString('codeOTP') : null;
-    const returnData = await this.authService.loginOTP(email, codeOTP ?? null);
+    const otpCode = payload.otpCode ? validador.lerString('otpCode') : null;
+    const returnData = await this.authService.loginOTP(email, otpCode ?? null);
     const opcoes = getOpcoesCookieAutenticacao();
     response.cookie(authCookie, returnData.token, opcoes);
     return returnData;
@@ -52,8 +52,8 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('logout')
-  async logout(@Req() request: Request, @Res() response: Response) {
-    const token: string = request.cookies[authCookie];
+  logout(@Req() request: Request, @Res() response: Response) {
+    const token = (request.cookies as { [key: string]: string })[authCookie];
     if (token) {
       this.tokenService.addInvalidToken(token);
     }

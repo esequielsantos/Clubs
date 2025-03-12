@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
 
 export default function Menu() {
-  const { logout, user, route } = useAuth();
+  const { logout, user} = useAuth();
+
   const { t } = useTranslation();
 
   const deslogar = async () => {
@@ -49,71 +50,73 @@ export default function Menu() {
   );
 
   
-  const userLevel = user?.level ?? 0;
-
   const menus = [];
 
-  if (userLevel! >= 0) {
-    const reportsItens = [];
+  if(user){
+    const userLevel = user?.level ?? 0;
 
-    reportsItens.push({
-      icon: 'pi pi-download',
-      label: t('menu.cards'),
-      url: '/reports/file-reports',
-    });
+    if (userLevel! >= 0) {
+      const reportsItens = [];
 
-    reportsItens.push({ icon: 'pi pi-graduation-cap', label: t('menu.cost_centres'), url: '/app/file-app' });
+      reportsItens.push({
+        icon: 'pi pi-download',
+        label: t('menu.cards'),
+        url: '/reports/file-reports',
+      });
 
-    reportsItens.push({
-      icon: 'pi pi-list',
-      label: t('menu.holders'),
-      url: '/reports/fees',
-    });
+      reportsItens.push({ icon: 'pi pi-graduation-cap', label: t('menu.cost_centres'), url: '/app/file-app' });
 
-    menus.push({
-      label: t('menu.registrations'),
-      items: [...reportsItens],
-    });
-  }
+      reportsItens.push({
+        icon: 'pi pi-list',
+        label: t('menu.holders'),
+        url: '/reports/fees',
+      });
 
-  if (userLevel! >= 0) {   
-    const financesItens = [];
+      menus.push({
+        label: t('menu.registrations'),
+        items: [...reportsItens],
+      });
+    }
 
-    financesItens.push({
-      icon: 'pi pi-list',
-      label: t('menu.credit_selection'),
-      url: '/finances/fees',
-    });
+    if (userLevel! >= 0) {   
+      const financesItens = [];
 
-    financesItens.push({
-      icon: 'pi pi-list',
-      label: t('menu.account_statement'),
-      url: '/finances/statement',
-    });
+      financesItens.push({
+        icon: 'pi pi-list',
+        label: t('menu.credit_selection'),
+        url: '/finances/fees',
+      });
 
-    financesItens.push({
-      icon: 'pi pi-list',
-      label: t('menu.bank_orders'),
-      url: '/finances/taxes',
-    });
+      financesItens.push({
+        icon: 'pi pi-list',
+        label: t('menu.account_statement'),
+        url: '/finances/statement',
+      });
 
-    financesItens.push({
-      icon: 'pi pi-list',
-      label: t('menu.financial_movements'),
-      url: '/finances/balance',
-    });
+      financesItens.push({
+        icon: 'pi pi-list',
+        label: t('menu.bank_orders'),
+        url: '/finances/taxes',
+      });
 
-    menus.push({
-      label: t('menu.movements'),
-      items: [...financesItens],
-    });
-  }
+      financesItens.push({
+        icon: 'pi pi-list',
+        label: t('menu.financial_movements'),
+        url: '/finances/balance',
+      });
 
-  if (userLevel! >= 4) {
-    menus.push({
-      label: t('menu.admin'),
-      items: [{ icon: 'pi pi-user', label: t('menu.users'), url: '/admin/manage-user' }],
-    });
+      menus.push({
+        label: t('menu.movements'),
+        items: [...financesItens],
+      });
+    }
+
+    if (userLevel! >= 4) {
+      menus.push({
+        label: t('menu.admin'),
+        items: [{ icon: 'pi pi-user', label: t('menu.users'), url: '/admin/manage-user' }],
+      });
+    }
   }
   const final =
     user !== null && user?.level !== null ? (
@@ -135,7 +138,7 @@ export default function Menu() {
       <div className='flex align-items-center gap-2'>
         <button onClick={() => changeLanguage('en')} className={styles.languageButton}>EN</button>
         <button onClick={() => changeLanguage('pt')} className={styles.languageButton}>PT</button>
-        <a href={route !== 'finances' ? '/' : `/${route}`} className={styles.link}>
+        <a href='/finances' className={styles.link}>
           <i className={`${styles.icone} pi pi-sign-out`}></i>
           {t('menu.login')}
         </a>

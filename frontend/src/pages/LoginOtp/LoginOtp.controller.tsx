@@ -1,14 +1,24 @@
 import { environment } from "@/env";
-import { useTranslation } from 'react-i18next';
+import { HttpStatus, StatusReturn } from "@/provider/useAuth";
+import { TFunction } from "i18next";
 
-export const sendEmail = async (email: string): Promise<string> => {
-  const { t } = useTranslation();
+export interface ResultLogin extends StatusReturn {
+  token: string | null;
+}
+
+
+export const sendEmail = async (email: string, t:TFunction): Promise<ResultLogin> => {
+  
   try {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
       const msg = t('email_invalid', { email });
-      return msg;
+      return {
+        message: msg,
+        status: HttpStatus.BAD_REQUEST,
+        token: null, 
+      }
     }
 
     const response = await fetch(environment.api + "/auth/loginotp", {
@@ -22,8 +32,7 @@ export const sendEmail = async (email: string): Promise<string> => {
 
     if (response.ok) {
       const data = await response.json();
-      const msg = data.message;
-      return msg;
+      return data;
     } else {
       throw new Error(t('error_sending_email', { status: response.status, statusText: response.statusText }));
     }
@@ -33,8 +42,7 @@ export const sendEmail = async (email: string): Promise<string> => {
   }
 };
 
-export const validateOtpCode = async (email: string, otpCode: string): Promise<string> => {
-  const { t } = useTranslation();
+export const validateOtpCode = async (email: string, otpCode: string): Promise<ResultLogin> => {
   try {
     const response = await fetch(environment.api + "/auth/loginotp", {
       method: "POST",
@@ -49,15 +57,9 @@ export const validateOtpCode = async (email: string, otpCode: string): Promise<s
     });
 
     const data = await response.json();
-    if (data.status === 200) {      
-      return t('login_successful');
-    } else if(data.status === 400) {
-      return data.message;
-    } else {
-      return t('error_validating_otp', { status: response.status });
-    }
+    return data;
   } catch (error) {
     console.error("Request error:", error);
-    throw error; // Propagates the error for handling in the component
+    throw error;
   }
 };

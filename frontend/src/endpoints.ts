@@ -1,17 +1,10 @@
 export interface Endpoint {
   "/user": Promise<Users[]>;
 }
- 
+
 export interface Users {
   id: number;
   name: string;
-  primeiroNome: string;
-  email: string;
-  acessoAdmin: string;
-  acessoPrestadores: string;
-  acessoApp: string;
-  acessoSequestros: string;
-  ativo: string;
   createdBy: string;
   createdAt: Date;
   updatedBy: string;

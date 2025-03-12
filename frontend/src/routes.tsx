@@ -11,8 +11,7 @@ import AuthGuard from './components/AuthGuard';
 import InvalidRequest from './components/InvalidRequest';
 import DeniedAccess from './components/DeniedAccess';
 import ErrorScreen from './components/ErrorScreen';
-import RootErrorBoundary from './components/RootErrorBoundary'; // Importar erros
-import App from './App';
+import RootErrorBoundary from './components/RootErrorBoundary'; 
 // dont import pages where --> do at lazy import 
 
 interface AppRoute extends NonIndexRouteObject {
@@ -31,6 +30,7 @@ export interface RouteData {
 
 const DefaultLayout = lazy(() => import('./pages/DefaultLayout/DefaultLayout'));
 const Home = lazy(() => import('./pages/Home/Home'));
+const App = lazy(() => import('./App'));
 
 const LoginOtp = lazy(() => import('./pages/LoginOtp/LoginOtp'));
 const EmailRestore = lazy(() => import('./pages/LoginOtp/EmailRestore'));
@@ -68,6 +68,22 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Navigate to='/home' />, // Redirect to /home
+      },
+      {
+        path: '/loginotp',
+        element: (
+            <Suspense fallback={<div>Wait, loading...</div>}>
+              <LoginOtp />
+            </Suspense>
+        ),
+      },
+      {
+        path: '/emailrestore',
+        element: (
+            <Suspense fallback={<div>Wait, loading...</div>}>
+              <EmailRestore />
+            </Suspense>
+        ),
       },
       {
         path: '/home',

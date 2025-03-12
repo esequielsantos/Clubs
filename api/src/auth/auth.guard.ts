@@ -61,14 +61,20 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
+      const jwtSecret: string | undefined = process.env.JWT_SECRET;
+      if (jwtSecret === undefined) {
+        return {
+          id: null,
+          level: null,
+          name: null,
+          email: null,
+          status: HttpStatus.INTERNAL_SERVER_ERROR, // 500
+        };
+      }
       const payload: JwtPayload = await this.jwtService.verifyAsync(token, {
-        secret: process.env.JWT_SECRET,
+        secret: jwtSecret,
       });
-      if (
-        payload &&
-        typeof payload === 'object' &&
-        Number.isInteger(payload.exp)
-      ) {
+      if (payload?.exp && typeof payload.exp === 'number') {
         const expirationDate = new Date(payload.exp * 1000); // Convert seconds to milliseconds
         if (expirationDate < new Date()) {
           return {
@@ -88,16 +94,16 @@ export class AuthGuard implements CanActivate {
           status: HttpStatus.NOT_ACCEPTABLE, // 406
         };
       }
-      const member = await this.membersService.getMemberById(
-        payload.sub as number,
+      const memberRefreshData = await this.membersService.getMemberById(
+        payload.sub,
       );
 
-      if (member) {
+      if (memberRefreshData) {
         return {
-          id: member.id, //  member
-          level: payload.user as number, //level do member ou member
-          name: member.name,
-          email: member.email,
+          id: payload.sub, //  member
+          level: memberRefreshData.profile_id, //level member update, could be different that login payload
+          name: memberRefreshData.name,
+          email: memberRefreshData.email,
           status: HttpStatus.OK, // 200
         };
       } else {
@@ -111,8 +117,8 @@ export class AuthGuard implements CanActivate {
       }
     } catch (error) {
       const currentDate = new Date();
-      console.log(`Token expiration date: ${error.expiredAt}`);
-      console.log(`Current server date: ${currentDate}`);
+      console.log(`Token expiration date: ${error.expiredAt?.toString()}`);
+      console.log(`Current server date: ${currentDate.toString()}`);
 
       if (error instanceof TokenExpiredError) {
         return {

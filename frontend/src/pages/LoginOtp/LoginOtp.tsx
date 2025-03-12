@@ -5,105 +5,114 @@ import { InputText } from "primereact/inputtext";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { enviarEmail, validarCodigoOtp } from "./LoginOtp.controller";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { sendEmail, validateOtpCode } from "./LoginOtp.controller";
 import styles from "./LoginOtp.module.scss";
+import { HttpStatus, StatusReturn } from "@/provider/useAuth";
+import { useTranslation } from "react-i18next";
+
+export interface ResultLogin extends StatusReturn {
+  token: string | null;
+}
 
 export default function LoginOtp() {
-  const [emailEnviado, setEmailEnviado] = useState(false);
-  const [enviando, setEnviando] = useState(false); //se email ja foi enviado pede codigo OTP
+  const { t } = useTranslation();
+  const [emailSend, setEmailSend] = useState(false);
+  const [sending, setSending] = useState(false); 
 
   const [email, setEmail] = useState(() => {
-    //busca email no sessionStorage ou nos cookies
-    const storedEmail = sessionStorage.getItem("cpesc-pc-email");
+    const storedEmail = sessionStorage.getItem("temp-email");
     if (storedEmail) {
       return storedEmail;
     } else {
-      // Se não encontrar no sessionStorage, verifica nos cookies
       const cookieValue = document.cookie
         .split("; ")
-        .find(row => row.startsWith("cpesc-pc-email="))
+        .find(row => row.startsWith("temp-email="))
         ?.split("=")[1];
       return cookieValue ?? "";
     }
   });
-  const [codigoOtp, setCodigoOtp] = useState<string>("");
-  const [error, setErro] = useState<string | null>(null);
 
-  const codigoOtpRef = useRef<HTMLInputElement | null>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const redirectTo = searchParams.get('redirect') || '/';
 
+  const [otpCode, setOtpCode] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  const otpCodeRef = useRef<HTMLInputElement | null>(null);
   const toast = useRef<Toast>(null);
 
   const handleToastShow = () => {
     setTimeout(() => {
-      if (codigoOtpRef.current) {
-        codigoOtpRef.current.focus();
+      if (otpCodeRef.current) {
+        otpCodeRef.current.focus();
       }
     }, 5001);
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setErro(null);
-    setEnviando(true); //desativa o botao e liga spinner
+    setError(null);
+    setSending(true); //desativa o botao e liga spinner
 
     try {
-      if (!emailEnviado) {
-        const msg = await enviarEmail(email);
+      if (!emailSend) {
+        const returnSendEmail = await sendEmail(email, t);
 
-        toast.current?.show({ severity: "success", summary: msg, life: 5000 });
+        const msg = returnSendEmail.message;
+        const status = returnSendEmail.status == 200 ? "success" : "warn";
+
+        toast.current?.show({ severity: status, summary: msg, life: 5000 });
 
         if (msg.includes("enviado")) {
-          sessionStorage.setItem("cpesc-pc-email", email);
-          setEmailEnviado(true);
-          setErro(msg);
+          sessionStorage.setItem("temp-email", email);
+          setEmailSend(true);
+          setError(msg);
         } else {
-          setEmailEnviado(false);
-          setErro(msg);
+          setEmailSend(false);
+          setError(msg);
         }
       } else {
-        //email ja enviado... agora enviar o codigo OTP
+        const returnValidateOtp = await validateOtpCode(email, otpCode);
 
-        const msg = await validarCodigoOtp(email, codigoOtp);
+        const msg = returnValidateOtp.message;
+        const status = returnValidateOtp.status == 200 ? "success" : "warn";
 
-        toast.current?.show({ severity: "success", summary: msg, life: 3000 });
-        setErro(msg);
-
-        //login com sucesso
-        if (msg.includes("Sucesso")) {
+        toast.current?.show({ severity: status, summary: msg, life: 3000 });
+        setError(msg);
+        
+        if (returnValidateOtp.status === HttpStatus.OK) {
           const expDate = new Date();
           expDate.setTime(expDate.getTime() + 180 * 24 * 60 * 60 * 1000); // 180 dias em milissegundos
-          document.cookie = `cpesc-pc-email=${email}; path=/treasures; expires=${expDate.toUTCString()};`;
-
-          //redirecionar para a tela correta
-          window.location.href = "/treasures/fees";
-        } else if (!msg.includes("inválido")) {
-          //volta sozinho para tela de login email
+          document.cookie = `temp-email=${email}; path=/; expires=${expDate.toUTCString()};`;
+          navigate(redirectTo);
+        } else if (returnValidateOtp.status != HttpStatus.BAD_REQUEST) {       
           setTimeout(() => {
-            setEmailEnviado(false);
-            setErro("");
-            setCodigoOtp("");
+            setEmailSend(false);
+            setError("");
+            setOtpCode("");
           }, 4000);
         }
       }
     } catch (error) {
-      setEmailEnviado(false);
-      setCodigoOtp("");
-      setErro(`Erro ao enviar email ou validar código OTP. ${error}`);
+      setEmailSend(false);
+      setOtpCode("");
+      setError(`Erro ao enviar email ou validar código OTP. ${error}`);
     }
-    setEnviando(false); //desliga spinner
+    setSending(false); //turn off spinner
   };
 
-  const handleCodigoOtpChange = (e: InputOtpChangeEvent) => {
+  const handleOtpCodeChange = (e: InputOtpChangeEvent) => {
     const inputValue = e.value ?? "";
-    setCodigoOtp(inputValue.toString());
+    setOtpCode(inputValue.toString());
   };
 
   const handleVoltar = () => {
-    setEmailEnviado(false);
-    setEnviando(false);
-    setCodigoOtp("");
-    setErro(null);
+    setEmailSend(false);
+    setSending(false);
+    setOtpCode("");
+    setError(null);
   };
 
   return (
@@ -111,15 +120,15 @@ export default function LoginOtp() {
       <img src={icone} alt="Icone" className={styles.icone} />
       <section className={styles.tituloTela}>
         <h1>
-          Bem-vindo à Prestação <br />
-          de Contas do CPESC
+          Bem-vindo ao Clubs <br />
+          Gerencimento de Clube
         </h1>
       </section>
 
       <section>
         <Toast ref={toast} onShow={handleToastShow} position="top-center" tabIndex={-1}></Toast>
         <form onSubmit={handleSubmit} className={styles.formulario}>
-          {!emailEnviado ? (
+          {!emailSend ? (
             <>
               <span className={styles.label}>Informe seu e-mail:</span>
               <InputText
@@ -130,7 +139,7 @@ export default function LoginOtp() {
                 placeholder="exemplo@email.com"
                 required
               />
-              {enviando && ( // Show spinner conditionally
+              {sending && ( // Show spinner conditionally
                 <ProgressSpinner
                   style={{
                     width: "40px",
@@ -140,11 +149,11 @@ export default function LoginOtp() {
                   }}
                 />
               )}
-              <Button className={styles.botao} label="Enviar email" disabled={enviando} type="submit" />
+              <Button className={styles.botao} label="Enviar email" disabled={sending} type="submit" />
               <div className={styles.esqueciEmailLink}>
                 {" "}
                 {/* Add a container for styling */}
-                <Link to="/treasures/recupera-email">
+                <Link to="/emailrestore">
                   {" "}
                   <i className="pi pi-external-link" /> Esqueci meu email...
                 </Link>
@@ -154,16 +163,16 @@ export default function LoginOtp() {
             <>
               <span className={styles.label}>Informe o código OTP:</span>
               <InputOtp
-                ref={codigoOtpRef}
+                ref={otpCodeRef}
                 className={styles.input}
-                value={codigoOtp}
-                onChange={e => handleCodigoOtpChange(e)}
+                value={otpCode}
+                onChange={e => handleOtpCodeChange(e)}
                 integerOnly
                 length={6}
                 required
                 autoFocus={true}
               />
-              {enviando && ( // Show spinner conditionally
+              {sending && ( // Show spinner conditionally
                 <ProgressSpinner
                   style={{
                     width: "40px",
@@ -175,7 +184,7 @@ export default function LoginOtp() {
               )}
               <div className={styles.botaoContainer}>
                 <Button className={styles.botao} label="Voltar" type="button" onClick={handleVoltar} />
-                <Button className={styles.botao} label="Enviar código" type="submit" disabled={enviando} />
+                <Button className={styles.botao} label="Enviar código" type="submit" disabled={sending} />
               </div>
             </>
           )}
