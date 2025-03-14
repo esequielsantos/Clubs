@@ -6,13 +6,22 @@ import { version } from '@/AppVersion';
 import styles from './Menu.module.scss';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
+import { useLocation } from 'react-router-dom';
 
 export default function Menu() {
   const { logout, user} = useAuth();
 
   const { t } = useTranslation();
 
-  const deslogar = async () => {
+  const location = useLocation();
+  let showLogin: boolean = false;
+  if(location.pathname.includes('/loginotp')) {
+    showLogin = false;
+  } else {
+    showLogin = true;
+  }
+
+  const logOff = async () => {
     await logout();
   };
 
@@ -128,7 +137,9 @@ export default function Menu() {
             {nameFormat(user?.name!)}
           </span>
 
-          <span className={styles.link} onClick={deslogar}>
+          <button onClick={() => changeLanguage('en')} className={styles.languageButton}>EN</button>
+          <button onClick={() => changeLanguage('pt')} className={styles.languageButton}>PT</button>
+          <span className={styles.link} onClick={logOff}>
             <i className={`${styles.icone} pi pi-sign-out`}></i>
             {t('menu.logout')}
           </span>
@@ -138,10 +149,12 @@ export default function Menu() {
       <div className='flex align-items-center gap-2'>
         <button onClick={() => changeLanguage('en')} className={styles.languageButton}>EN</button>
         <button onClick={() => changeLanguage('pt')} className={styles.languageButton}>PT</button>
+        {showLogin && (
         <a href='/loginotp' className={styles.link}>
           <i className={`${styles.icone} pi pi-sign-out`}></i>
           {t('menu.login')}
         </a>
+        )}          
       </div>
     );
 
