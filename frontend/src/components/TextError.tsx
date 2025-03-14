@@ -1,4 +1,4 @@
-import telaErro from "@/tela-error.module.scss";
+import telaErro from "@/defaultScreen.module.scss";
 
 export default function TextoErro(props: { mensagem: string }) {
   return (

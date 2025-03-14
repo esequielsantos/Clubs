@@ -4,6 +4,7 @@ import { useAuth } from "../provider/useAuth";
 import Loading from "./Loading";
 import ErrorScreen from "./ErrorScreen";
 import DeniedAccess from "./DeniedAccess";
+import LoginOtp from "@/pages/LoginOtp/LoginOtp";
 
 export interface AuthGuardProps {
   requestLevel: number;
@@ -22,9 +23,13 @@ export default function AuthGuard(props: AuthGuardProps) {
     return <ErrorScreen mensagem={error.message}/>;
   }
  
-  if(user && user?.level >= requestLevel){
-    return children;
+  if(user){
+    if(user?.level >= requestLevel){
+      return children;
+    }else{
+      return <DeniedAccess />;
+    }
   }else{
-    return <DeniedAccess />;
+    return <LoginOtp />;
   }
 }

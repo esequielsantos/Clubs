@@ -5,7 +5,7 @@ import { InputText } from "primereact/inputtext";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { sendEmail, validateOtpCode } from "./LoginOtp.controller";
 import styles from "./LoginOtp.module.scss";
 import { HttpStatus, StatusReturn } from "@/provider/useAuth";
@@ -34,9 +34,8 @@ export default function LoginOtp() {
   });
 
   const location = useLocation();
-  const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
-  const redirectTo = searchParams.get('redirect') || '/';
+  let redirectTo = searchParams.get('redirect') || '/';
 
   const [otpCode, setOtpCode] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -86,7 +85,8 @@ export default function LoginOtp() {
           const expDate = new Date();
           expDate.setTime(expDate.getTime() + 180 * 24 * 60 * 60 * 1000); // 180 dias em milissegundos
           document.cookie = `temp-email=${email}; path=/; expires=${expDate.toUTCString()};`;
-          navigate(redirectTo);
+          if(redirectTo.includes("loginotp")) redirectTo = "/home";
+          window.location.href = redirectTo;
         } else if (returnValidateOtp.status != HttpStatus.BAD_REQUEST) {       
           setTimeout(() => {
             setEmailSend(false);

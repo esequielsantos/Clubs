@@ -1,12 +1,12 @@
 export interface AmbientVariable {
-  ambient: Ambiente;
+  ambient: Ambient;
   api: string;
-  sauUrlLogin: string;
   login: string;
 }
 
-export enum Ambiente {
-  Desenvolvimento,
-  Homologacao,
-  Producao,
+export enum Ambient {
+  Development,
+  Test,
+  Production,
+  Homologation,
 }

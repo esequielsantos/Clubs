@@ -95,68 +95,6 @@ const router = createBrowserRouter([
           </AuthGuard>
         ),
       },
-      {
-        path: '/registrations',
-        element: (
-          <AuthGuard requestLevel={0}>
-            {' '}
-            <Outlet />
-          </AuthGuard>
-        ),
-        handle: { breadcrumb: () => 'files Reports' },
-        children: [
-          {
-            path: '/registrations/file-reports',
-            element: (
-              <Suspense fallback={<div>Wait, loading...</div>}>
-                <Home />
-              </Suspense>
-            ),
-            handle: { breadcrumb: () => 'file Reports' },
-          },
-        ],
-      },
-      {
-        path: '/reports',
-        element: (
-          <AuthGuard requestLevel={0}>
-            <Outlet />
-          </AuthGuard>
-        ),
-        handle: { breadcrumb: () => 'files APP' },
-        children: [
-          {
-            path: '/reports/file-app',
-            element: (
-              <Suspense fallback={<div>Wait, loading...</div>}>
-                <Home />
-              </Suspense>
-            ),
-            handle: { breadcrumb: () => 'files APP' },
-          },
-        ],
-      },
-      {
-        path: '/admin',
-        element: (
-          <AuthGuard requestLevel={0}>
-            {' '}
-            <Outlet />
-          </AuthGuard>
-        ),
-        handle: { breadcrumb: () => 'Management' },
-        children: [
-          {
-            path: '/admin/manage-user',
-            element: (
-              <Suspense fallback={<div>Wait, loading...</div>}>
-                <App />
-              </Suspense>
-            ),
-            handle: { breadcrumb: () => 'User manage' },
-          },
-        ],
-      },
     ],
   },
 ] satisfies AppRoute[]);

@@ -1,6 +1,6 @@
 import TextError from '@/components/TextError';
 import { useAuth } from '@/provider/useAuth';
-import styles from '@/styles.module.scss';
+import styles from '@/defaultScreen.module.scss';
 
 export default function Home() {
   const { user } = useAuth();

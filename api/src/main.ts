@@ -4,7 +4,12 @@ import * as cookieParser from 'cookie-parser';
 import * as dotenv from 'dotenv';
 
 async function bootstrap() {
-  dotenv.config();
+  console.log('Environment variables before dotenv config:', process.env);
+  const result = dotenv.config();
+  if (result.error) {
+    throw result.error;
+  }
+
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
@@ -14,6 +19,8 @@ async function bootstrap() {
 
   app.use(cookieParser());
 
-  await app.listen(process.env.PORT ?? 3100);
+  const port = process.env.PORT ?? 3100;
+  console.log(`Server running on port ${port}`);
+  await app.listen(port);
 }
 void bootstrap();

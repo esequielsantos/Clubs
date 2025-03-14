@@ -138,7 +138,7 @@ export default function Menu() {
       <div className='flex align-items-center gap-2'>
         <button onClick={() => changeLanguage('en')} className={styles.languageButton}>EN</button>
         <button onClick={() => changeLanguage('pt')} className={styles.languageButton}>PT</button>
-        <a href='/finances' className={styles.link}>
+        <a href='/loginotp' className={styles.link}>
           <i className={`${styles.icone} pi pi-sign-out`}></i>
           {t('menu.login')}
         </a>

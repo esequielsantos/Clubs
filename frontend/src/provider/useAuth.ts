@@ -30,6 +30,9 @@ export interface AuthenticatedUser {
   email: string;
   status: HttpStatus;
 }
+export interface ApiResponse {
+  credentials: AuthenticatedUser;
+}
 
 export interface StatusReturn {
   message: string;

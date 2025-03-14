@@ -2,7 +2,7 @@ import { environment } from '@/env';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Auth, AuthData, AuthenticatedUser, HttpStatus } from './useAuth';
+import { Auth, AuthData, ApiResponse, HttpStatus } from './useAuth';
 export interface AuthProviderProps {
   children: ReactNode;
 }
@@ -15,7 +15,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = props => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isLoading, isError, error, refetch } = useQuery<AuthenticatedUser | null>({
+  const { data, isLoading, isError, error, refetch } = useQuery<ApiResponse | null>({
     queryKey: ['credentials'],
     queryFn: ({ signal }) =>
       fetch(environment.api + urlCredentials, {
@@ -50,7 +50,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = props => {
   },[queryClient, logout, refetch],);
 
   useEffect(() => {
-      if (!data) {
+      if (!data || data.credentials === null) {
         return;
       }
       
@@ -60,7 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = props => {
         setWaiting(false);
       }; 
   
-      if(data?.status === HttpStatus.OK){      
+      if(data?.credentials.status === HttpStatus.OK){      
         void fetchData();
       }else{
         void login();
@@ -76,7 +76,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = props => {
   } else if (isError) {
     authData = { user: null, loading: false, error: error, logout: async () => {} };
   } else {
-    authData = { user: data ?? null, loading: false, error: null, logout: async () => {} };
+    authData = { user: data?.credentials ?? null, loading: false, error: null, logout: async () => {} };
   }
   
   return <Auth.Provider value={{ ...authData, logout }}>{props.children}</Auth.Provider>;

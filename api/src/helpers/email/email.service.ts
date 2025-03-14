@@ -23,10 +23,21 @@ export class EmailService {
     validate: string,
   ): Promise<StatusReturn> {
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: {
+        name: 'Clubs Management',
+        address: process.env.EMAIL_USER,
+      },
       to,
-      subject: 'Código de autenticação Prestação de contas CPESC',
-      text: `\nPrestação de contas CPESC \nSeu código para acesso é: ${otp}. Valído até ${validate}`,
+      subject: 'Código de autenticação Clubs Management',
+      html: `
+      <p>Olá,</p>
+        <p>Você recebeu este email porque solicitou um código de autenticação para acessar o Clubs Management.</p>
+        <p>Seu código de autenticação é: <strong>${otp}</strong></p>
+        <p>Este código é válido até <u>${validate}</u>.</p>
+        <p>Se você não solicitou este código, por favor, ignore este email.</p>
+        <p>Atenciosamente,</p>
+        <p><i>Equipe Clubs Management</i></p>
+      `,
     };
 
     try {
