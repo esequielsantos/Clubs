@@ -63,12 +63,6 @@ export class AuthController {
       secure: true,
       path: '/auth/',
     });
-    response.clearCookie(authCookie, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: true,
-      path: '/',
-    });
     response.status(200).json({ message: 'Logout sucessfull!' });
   }
 

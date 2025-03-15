@@ -66,7 +66,10 @@ export class AuthService {
           member.otpExpiration,
         );
         if (returnData.status === HttpStatus.OK) {
-          member.dtLastAccess = new Date();
+          member.dtLastAccess = new Date(); //TODO set otpExpiration to past and the OTPCode to ""
+          //create a expiration time to 01 Jan 1970
+          member.otpExpiration = new Date(0);
+          member.codeOtp = '';
           await this.membersService.updatedMember(member);
         }
         return returnData;
