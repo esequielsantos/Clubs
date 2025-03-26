@@ -18,5 +18,23 @@
     "users": "Usuários",
     "logout": "Sair",
     "login": "Logar"
+  },
+  "home": {
+    "open_for": "Abrir Formulário"
+  },
+  "error": "Erro",
+  "error_loading_data": "Erro ao carregar dados: {{error}}",
+  "select_placeholder": "Selecione uma opção",
+  "monthly-fee": {
+    "management_id": "ID da Gestão",
+    "pay_date": "Data do Pagamento",
+    "description": "Descrição",
+    "value": "Valor Pago",
+    "member_id": "ID do Membro"
+  },
+  "status": {
+    "pending": "Pendente",
+    "paid": "Pago",
+    "canceled": "Cancelado"
   }
 }

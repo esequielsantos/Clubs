@@ -59,7 +59,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/error',
-        element: <ErrorScreen linkVoltar='/' />,
+        element: <ErrorScreen returnUrl='/' />,
       },
       {
         path: '/invalidrequest',

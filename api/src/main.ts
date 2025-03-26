@@ -4,7 +4,6 @@ import * as cookieParser from 'cookie-parser';
 import * as dotenv from 'dotenv';
 
 async function bootstrap() {
-  console.log('Environment variables before dotenv config:', process.env);
   const result = dotenv.config();
   if (result.error) {
     throw result.error;

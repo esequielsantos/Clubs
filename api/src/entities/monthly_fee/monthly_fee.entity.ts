@@ -42,7 +42,7 @@ export class Monthly_fee {
 
   @ManyToOne(() => Members, (member) => member.monthly_fee)
   @JoinColumn({ name: 'member_id' })
-  members: Members;
+  member: Members;
 
   @OneToMany(() => Incomes, (income) => income.monthly_fees)
   incomes: Monthly_fee[];

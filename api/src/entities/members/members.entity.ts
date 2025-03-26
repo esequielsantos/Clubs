@@ -111,7 +111,7 @@ export class Members {
   @OneToMany(() => Management, (management) => management.treasurer)
   treasurerOf: Management[];
 
-  @OneToMany(() => Monthly_fee, (monthly_fee) => monthly_fee.members)
+  @OneToMany(() => Monthly_fee, (monthly_fee) => monthly_fee.member)
   monthly_fee: Monthly_fee[];
 
   @OneToMany(() => Incomes, (income) => income.members)

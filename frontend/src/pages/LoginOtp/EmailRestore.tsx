@@ -11,7 +11,7 @@ export default function EmailRestore() {
   const [cartaoCpesc, setCartaoCpesc] = useState('');
   const [sending, setSending] = useState(false);
   const [temEmail, setTemEmail] = useState(false);
-  const [mensagem, setMensagem] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
 
   const handledocIdChange = (e: InputMaskChangeEvent) => {
@@ -24,7 +24,7 @@ export default function EmailRestore() {
 
   const handleLocalizarEmail = async () => {
     setSending(true);
-    setMensagem(null);
+    setMessage(null);
     setTemEmail(false);
 
     try{
@@ -41,16 +41,16 @@ export default function EmailRestore() {
 
       if (response.ok) {
         const data = await response.json();
-        setMensagem(data.message);
+        setMessage(data.message);
         setTemEmail(true);
       } else {
         const errorData = await response.json(); // Get error data from the response
         const errorMessage = errorData.message || `Erro na requisição: ${response.status} - ${response.statusText}`;
-        setMensagem(errorMessage);
+        setMessage(errorMessage);
         setTemEmail(false);
       }
     }catch (error){
-      setMensagem(`Erro ao tentar recuperar o email. Por favor, tente novamente mais tarde.\n${error}}`); // Generic error message
+      setMessage(`Erro ao tentar recuperar o email. Por favor, tente novamente mais tarde.\n${error}}`); // Generic error message
     } finally {
       setSending(false);
     }
@@ -96,9 +96,9 @@ export default function EmailRestore() {
             }}
           />
         )}
-        {mensagem && <div className={styles.message}>
+        {message && <div className={styles.message}>
             {temEmail && <span> O email registrado para docId e Cartão é <br/></span>}
-            [{mensagem}]
+            [{message}]
           </div>}
         <Button 
           label="Localizar Email"

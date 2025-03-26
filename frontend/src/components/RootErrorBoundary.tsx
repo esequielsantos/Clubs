@@ -19,9 +19,9 @@ export default function RootErrorBoundary() {
       return (
         <div className={styles.container}>
             <h1 className={styles.codigoErro}>{error.status}</h1>
-            <p className={styles.mensagemErro}>{error.statusText}</p>
+            <p className={styles.errorMessage}>{error.statusText}</p>
 
-            <div className={styles.mensagemAjuda}>
+            <div className={styles.messageAjuda}>
                 Ocorreu um error! Caso tenha chegado até aqui a partir
                 de uma de nossas aplicações, tente novamente mais tarde.
             </div>
@@ -33,10 +33,10 @@ export default function RootErrorBoundary() {
       <div>
         <div className={styles.container}>
             <h1 className={styles.codigoErro}>Ops</h1>
-            <p className={styles.mensagemAjuda} style={{ fontSize: '1.5rem' }}>
+            <p className={styles.messageAjuda} style={{ fontSize: '1.5rem' }}>
               {(error as Error).message}
             </p>
-            <div className={styles.mensagemAjuda}>
+            <div className={styles.messageAjuda}>
                 Ocorreu um error desconhecido! Caso tenha chegado até aqui a partir
                 de uma de nossas aplicações, tente novamente mais tarde.
             </div>

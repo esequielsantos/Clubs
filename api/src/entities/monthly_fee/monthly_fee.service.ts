@@ -28,21 +28,22 @@ export class Monthly_feeService {
       { field: 'description', type: 'string' },
       { field: 'amount', type: 'number' },
       { field: 'date', type: 'Date' },
-      { field: 'membersOf', type: 'array', foreignKey: true },
+      { field: 'member', type: 'array', foreignKey: true },
     ]);
   }
 
-  async getMembersByMonthly_feeId(id: number): Promise<Monthly_fee[]> {
-    return await this.monthly_feeRepository
-      .createQueryBuilder('monthly_fee')
-      .innerJoinAndSelect('monthly_fee.membersOf', 'membersOf')
-      .where('monthly_fee.id = :id', { id })
-      .select(['membersOf.*', 'monthly_fee.name', 'monthly_fee.description'])
-      .getRawMany();
+  async getMonthly_feeByMemberId(id: number): Promise<Monthly_fee[]> {
+    return await this.monthly_feeRepository.find({
+      where: { member: { id } },
+      relations: ['member'],
+    });
   }
 
   async getMonthly_feeById(id: number): Promise<Monthly_fee | null> {
-    return await this.monthly_feeRepository.findOneById(id);
+    return await this.monthly_feeRepository.findOne({
+      where: { id },
+      relations: ['member'],
+    });
   }
 
   async updateMonthly_fee(

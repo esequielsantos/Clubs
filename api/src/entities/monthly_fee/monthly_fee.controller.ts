@@ -35,11 +35,11 @@ export class Monthly_feeController {
     return await this.monthly_feeService.getMonthly_feeById(id);
   }
 
-  @Get(':id/members')
+  @Get('/member/:id')
   async getMembersByMonthly_feeId(
     @Param('id') id: number,
   ): Promise<Monthly_fee[] | null> {
-    return await this.monthly_feeService.getMembersByMonthly_feeId(id);
+    return await this.monthly_feeService.getMonthly_feeByMemberId(id);
   }
 
   @Post()

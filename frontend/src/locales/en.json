@@ -18,5 +18,23 @@
     "users": "Users",
     "logout": "Logout",
     "login": "Login"
+  },
+  "home": {
+    "open_for": "Open Form"
+  },
+  "error": "Erro",
+  "error_loading_data": "Erro ao carregar dados: {{error}}",
+  "select_placeholder": "Selecione uma opção",
+  "monthly-fee": {
+    "management_id": "Management ID",
+    "pay_date": "Pay Date",
+    "description": "Description",
+    "value": "Value",
+    "member_id": "Member ID"
+  },
+  "status": {
+    "pending": "Pendente",
+    "paid": "Pago",
+    "canceled": "Cancelado"
   }
 }

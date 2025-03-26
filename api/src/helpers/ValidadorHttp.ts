@@ -52,9 +52,9 @@ export class ValidadorHttp<T extends Record<string, unknown>> {
     return valor as E[keyof E];
   }
 
-  private assert(condicao: boolean, mensagem: string): asserts condicao {
+  private assert(condicao: boolean, message: string): asserts condicao {
     if (!condicao) {
-      throw new BadRequestException(mensagem);
+      throw new BadRequestException(message);
     }
   }
 }

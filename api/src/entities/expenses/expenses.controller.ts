@@ -16,8 +16,8 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 export class ExpensesController {
   constructor(private readonly expensesService: ExpensesService) {}
 
-  @Get()
-  async getAllActiveExpenses(): Promise<Expenses[]> {
+  @Get('/')
+  async getAllExpenses(): Promise<Expenses[]> {
     return await this.expensesService.getAllExpenses();
   }
 

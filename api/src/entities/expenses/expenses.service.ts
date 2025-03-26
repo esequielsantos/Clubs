@@ -16,7 +16,25 @@ export class ExpensesService {
   }
 
   async getAllExpenses(): Promise<Expenses[]> {
-    return await this.expensesRepository.find();
+    return await this.expensesRepository.find({
+      relations: [
+        'members',
+        'members.address',
+        'members.address.city',
+        'members.address.city.state',
+        'members.address.city.state.country',
+        'members.profile',
+        'members.club',
+        'members.monthly_fee',
+        'members.presidentOf',
+        'members.secretaryOf',
+        'members.treasurerOf',
+        'members.sponsor',
+      ],
+      order: {
+        id: 'ASC',
+      },
+    });
   }
 
   getExpensesData(): Promise<
@@ -42,7 +60,7 @@ export class ExpensesService {
   }
 
   async getExpenseById(id: number): Promise<Expenses | null> {
-    return await this.expensesRepository.findOneById(id);
+    return await this.expensesRepository.findOneBy({ id });
   }
 
   async updateExpense(id: number, expense: Expenses): Promise<UpdateResult> {

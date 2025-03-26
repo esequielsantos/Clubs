@@ -20,7 +20,7 @@ export default function AuthGuard(props: AuthGuardProps) {
   }
 
   if (error !== null) {
-    return <ErrorScreen mensagem={error.message}/>;
+    return <ErrorScreen message={error.message}/>;
   }
  
   if(user){

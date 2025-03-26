@@ -13,7 +13,7 @@ export default function DefaultLayout() {
     <AuthProvider>
       <div className={styles.layout}>
         <Menu />
-        <ErrorBoundary fallback={<ErrorScreen mensagem=''/>}>
+        <ErrorBoundary fallback={<ErrorScreen message=''/>}>
           <Suspense fallback={<Loading />}>
             <Outlet />
           </Suspense>
