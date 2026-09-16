@@ -31,7 +31,6 @@ export class AddressController {
     return await this.addressService.getAddressData();
   }
 
-
   @Get(':id')
   async getAddressById(@Param('id') id: number): Promise<Address | null> {
     return await this.addressService.getAddressById(id);
